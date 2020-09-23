@@ -3,7 +3,7 @@ README
 
 게임 소개
 
-+Under Cavern
++ Under Cavern
 
 	본 게임의 제목은 Under Cavern으로, 2004년에 프리웨어로 배포된 명작, Cave Story의 오마주입니다.
 	Cave Stroy는 2D 플랫포머 메트로배니아 게임으로, 본 프로젝트의 또한 같은 장르로서 제작 될 것입니다.
@@ -13,7 +13,7 @@ README
 
 ***
 
-GameStat
+GameState
 -----------
 
 본 게임은 타이틀 화면, 일시정지 화면, 인벤토리 화면, 인게임 화면으로 나누어 질 것 입니다.
