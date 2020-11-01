@@ -2,7 +2,12 @@ import random
 from pico2d import *
 import gfw
 
-RES_DIR = './res'
+RES_DIR = './res/'
+
+
+def res(file):
+	return RES_DIR + file
+
 
 def rand(val):
     return val * random.uniform(0.9, 1.1)
@@ -12,6 +17,7 @@ def point_add(point1, point2):
     x1, y1 = point1
     x2, y2 = point2
     return x1+x2, y1+y2
+
 
 def point_x_add(point1, point2):
     x1 = point1[0]

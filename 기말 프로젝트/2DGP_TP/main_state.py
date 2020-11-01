@@ -1,6 +1,7 @@
 import gfw
 from pico2d import *
 from player import Player
+from background import *
 import gobj
 
 canvas_width = 1280
@@ -13,7 +14,7 @@ def enter():
     player = Player()
     gfw.world.add(gfw.layer.player, player)
 
-    bg = gobj.ImageObject('bkMoon.png', (canvas_width // 2, canvas_height // 2))
+    bg = Background('bkMoon.png')
     gfw.world.add(gfw.layer.bg, bg)
 
 

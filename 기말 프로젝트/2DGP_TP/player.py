@@ -14,6 +14,7 @@ class Player:
     KEYDOWN_SPACE  = (SDL_KEYDOWN, SDLK_SPACE)
     KEYDOWN_LSHIFT = (SDL_KEYDOWN, SDLK_LSHIFT)
     KEYUP_LSHIFT   = (SDL_KEYUP,   SDLK_LSHIFT)
+
     image = None
     isLeft = 0
     isRight = 0
@@ -158,7 +159,7 @@ class Player:
             if self.jumpCount > 0:
                 self.jumpCount -= 1
                 self.isJumping = 1
-                self.delta = (self.delta[0], 2)
+                self.delta = (self.delta[0], 3)
 
     def get_bb(self):
         hw = 20
