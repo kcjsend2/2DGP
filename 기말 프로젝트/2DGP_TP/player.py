@@ -16,10 +16,14 @@ class Player:
     KEYUP_LSHIFT   = (SDL_KEYUP,   SDLK_LSHIFT)
 
     image = None
-    isLeft = 0
-    isRight = 0
-    isFalling = 0
+    isLeft = False
+    isRight = False
+    isFalling = False
     gravity = 0.08
+
+    Boots = False
+    Rocketlauncher = False
+    GaussGun = False
 
     #constructor
     def __init__(self):
@@ -31,9 +35,9 @@ class Player:
         self.image = gfw.image.load(gobj.RES_DIR + '/MyChar.png')
         self.time = 0
         self.fidx = 0
-        self.jumpCount = 2
-        self.isWalk = 0
-        self.isJumping = 0
+        self.jumpCount = 0
+        self.isWalk = False
+        self.isJumping = False
         self.action = 2
         self.velocity = 0, 0
 
@@ -44,7 +48,7 @@ class Player:
 
         if self.action == 0:
             sy = 1 * height
-            if self.isWalk == 1:
+            if self.isWalk:
                 if self.fidx % 2 != 0:
                     sx = (int)((self.fidx + 1) / 2 * width)
                 else:
@@ -52,7 +56,7 @@ class Player:
 
         elif self.action == 1:
             sy = 0 * height
-            if self.isWalk == 1:
+            if self.isWalk:
                 if self.fidx % 2 != 0:
                     sx = (int)((self.fidx + 1) / 2 * width)
                 else:
@@ -71,18 +75,18 @@ class Player:
         self.image.clip_draw(sx, sy, width, height, *self.pos, 64, 64)
 
     def update(self):
-        if Player.isRight == 1 and self.delta[0] < 1.5:
+        if Player.isRight and self.delta[0] < 1.5:
             self.delta = gobj.point_add(self.delta, (0.03, 0))
 
-        if Player.isLeft == 1 and self.delta[0] > -1.5:
+        if Player.isLeft and self.delta[0] > -1.5:
             self.delta = gobj.point_add(self.delta, (-0.03, 0))
 
-        if Player.isRight == 0 and self.delta[0] > 0:
+        if not Player.isRight and self.delta[0] > 0:
             self.delta = gobj.point_add(self.delta, (-0.03, 0))
             if self.delta[0] < 0.1:
                 self.delta = (0, self.delta[1])
 
-        if Player.isLeft == 0 and self.delta[0] < 0:
+        if not Player.isLeft and self.delta[0] < 0:
             self.delta = gobj.point_add(self.delta, (0.03, 0))
             if self.delta[0] > -0.1:
                 self.delta = (0, self.delta[1])
@@ -94,7 +98,12 @@ class Player:
             self.pos = (self.pos[0], 100)
             self.isFalling = 0
             self.isJumping = 0
-            self.jumpCount = 2
+
+            if self.Boots:
+                self.jumpCount = 2
+            else:
+                self.jumpCount = 1
+
             self.delta = (self.delta[0], 0)
 
         if self.isFalling:
@@ -112,16 +121,16 @@ class Player:
         frame = self.time * 15
 
         if dx < 0 or dx > 0:
-            self.isWalk = 1
+            self.isWalk = True
         else:
-            self.isWalk = 0
+            self.isWalk = False
 
-        if self.isWalk == 1:
-            if self.delay_frame == 0 and self.isJumping == 0:
+        if self.isWalk:
+            if self.delay_frame == 0 and not self.isJumping:
                 self.fidx += 1
                 if self.fidx % 4 == 0:
                     self.fidx = 0
-            if self.isJumping == 1:
+            if self.isJumping:
                 if self.fidx == 0 or self.fidx == 2:
                     self.fidx = 1
 
@@ -135,20 +144,20 @@ class Player:
         pair = (e.type, e.key)
         if pair == Player.KEYDOWN_RIGHT:
             self.action = 1
-            Player.isRight = 1
-            if Player.isLeft == 1:
-                Player.isLeft = 0
+            Player.isRight = True
+            if Player.isLeft:
+                Player.isLeft = False
 
         elif pair == Player.KEYUP_RIGHT:
             if self.action == 1:
                 self.action = 3
-            Player.isRight = 0
+            Player.isRight = False
 
         elif pair == Player.KEYDOWN_LEFT:
             self.action = 0
-            Player.isLeft = 1
-            if Player.isRight == 1:
-                Player.isRight = 0
+            Player.isLeft = True
+            if Player.isRight:
+                Player.isRight = False
 
         elif pair == Player.KEYUP_LEFT:
             if self.action == 0:
@@ -158,7 +167,7 @@ class Player:
         elif pair == Player.KEYDOWN_Z:
             if self.jumpCount > 0:
                 self.jumpCount -= 1
-                self.isJumping = 1
+                self.isJumping = True
                 self.delta = (self.delta[0], 3)
 
     def get_bb(self):
