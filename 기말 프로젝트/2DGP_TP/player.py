@@ -10,20 +10,26 @@ class Player:
     KEYDOWN_RIGHT = (SDL_KEYDOWN, SDLK_RIGHT)
     KEYUP_LEFT = (SDL_KEYUP, SDLK_LEFT)
     KEYUP_RIGHT = (SDL_KEYUP, SDLK_RIGHT)
+    KEYDOWN_A = (SDL_KEYDOWN, SDLK_a)
+    KEYDOWN_S = (SDL_KEYDOWN, SDLK_s)
 
     KEYDOWN_SPACE  = (SDL_KEYDOWN, SDLK_SPACE)
     KEYDOWN_LSHIFT = (SDL_KEYDOWN, SDLK_LSHIFT)
     KEYUP_LSHIFT   = (SDL_KEYUP,   SDLK_LSHIFT)
 
     image = None
+    weaponImage = None
+
     isLeft = False
     isRight = False
     isFalling = False
     gravity = 0.08
 
+    SelectedWeapon = 1
+
     Boots = False
-    Rocketlauncher = False
-    GaussGun = False
+    Rocketlauncher = True
+    GaussGun = True
 
     #constructor
     def __init__(self):
@@ -33,6 +39,7 @@ class Player:
         self.speed = 200
         self.delay_frame = 12
         self.image = gfw.image.load(gobj.RES_DIR + '/MyChar.png')
+        self.weaponImage = gfw.image.load(gobj.RES_DIR + '/Arms.png')
         self.time = 0
         self.fidx = 0
         self.jumpCount = 0
@@ -71,6 +78,20 @@ class Player:
 
         if self.delta[1] > 0:
             sx = 8 * width
+
+        weaponWidth = 36
+        weaponHeight = 13
+        flip = ''
+        offSet = 8
+
+        if self.action == 3 or self.action == 1:
+            flip = 'h'
+            offSet = -8
+
+        if self.SelectedWeapon != 0:
+            self.weaponImage.clip_composite_draw((self.SelectedWeapon - 1) * weaponWidth, 0,
+                                                 weaponWidth * self.SelectedWeapon, weaponHeight,
+                                                 0, flip, self.pos[0] - offSet, self.pos[1] - 3, 72, 26)
 
         self.image.clip_draw(sx, sy, width, height, *self.pos, 64, 64)
 
@@ -169,6 +190,14 @@ class Player:
                 self.jumpCount -= 1
                 self.isJumping = True
                 self.delta = (self.delta[0], 3)
+
+        elif pair == Player.KEYDOWN_A:
+            if self.Rocketlauncher:
+                self.SelectedWeapon = 2
+        elif pair == Player.KEYDOWN_S:
+            if self.GaussGun:
+                self.SelectedWeapon = 1
+
 
     def get_bb(self):
         hw = 20
