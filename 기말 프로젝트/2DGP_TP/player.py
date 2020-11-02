@@ -2,10 +2,12 @@ import random
 from pico2d import *
 import gfw
 import gobj
+from Rocket import *
 
 
 class Player:
     KEYDOWN_Z = (SDL_KEYDOWN, SDLK_z)
+    KEYDOWN_X = (SDL_KEYDOWN, SDLK_x)
     KEYDOWN_LEFT = (SDL_KEYDOWN, SDLK_LEFT)
     KEYDOWN_RIGHT = (SDL_KEYDOWN, SDLK_RIGHT)
     KEYUP_LEFT = (SDL_KEYUP, SDLK_LEFT)
@@ -161,6 +163,15 @@ class Player:
         if (self.delay_frame == 0):
              self.delay_frame = 12
 
+    def fire(self):
+        if self.SelectedWeapon == 1:
+            if self.action == 0 or self.action == 2:
+                b = rocket(self.pos[0], self.pos[1], 0)
+            elif self.action == 1 or self.action == 3:
+                b = rocket(self.pos[0], self.pos[1], 3)
+
+            gfw.world.add(gfw.layer.bullet, b)
+
     def handle_event(self, e):
         pair = (e.type, e.key)
         if pair == Player.KEYDOWN_RIGHT:
@@ -197,6 +208,8 @@ class Player:
         elif pair == Player.KEYDOWN_S:
             if self.GaussGun:
                 self.SelectedWeapon = 1
+        elif pair == Player.KEYDOWN_X:
+            self.fire()
 
 
     def get_bb(self):

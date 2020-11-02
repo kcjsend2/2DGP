@@ -2,6 +2,7 @@ import gfw
 from pico2d import *
 from player import Player
 from background import *
+from ImageSheet import *
 import gobj
 
 canvas_width = 1280
@@ -9,7 +10,8 @@ canvas_height = 960
 
 
 def enter():
-    gfw.world.init(['bg', 'player'])
+    gfw.world.init(['bg', 'bullet', 'platform', 'player'])
+
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
