@@ -132,19 +132,19 @@ class Player:
         self.image.clip_draw(sx, sy, width, height, *self.pos, 64, 64)
 
     def update(self):
-        if Player.isRight and self.delta[0] < 1.5:
-            self.delta = gobj.point_add(self.delta, (0.03, 0))
+        if Player.isRight and self.delta[0] < 2.0:
+            self.delta = gobj.point_add(self.delta, (0.06, 0))
 
-        if Player.isLeft and self.delta[0] > -1.5:
-            self.delta = gobj.point_add(self.delta, (-0.03, 0))
+        if Player.isLeft and self.delta[0] > -2.0:
+            self.delta = gobj.point_add(self.delta, (-0.06, 0))
 
         if not Player.isRight and self.delta[0] > 0:
-            self.delta = gobj.point_add(self.delta, (-0.03, 0))
+            self.delta = gobj.point_add(self.delta, (-0.06, 0))
             if self.delta[0] < 0.1:
                 self.delta = (0, self.delta[1])
 
         if not Player.isLeft and self.delta[0] < 0:
-            self.delta = gobj.point_add(self.delta, (0.03, 0))
+            self.delta = gobj.point_add(self.delta, (0.06, 0))
             if self.delta[0] > -0.1:
                 self.delta = (0, self.delta[1])
 

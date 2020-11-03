@@ -13,13 +13,13 @@ class rocket:
         self.dy = dy
 
         if dir == 0:
-            self.dx = -4 + self.dx
+            self.dx = -10 + self.dx
         elif dir == 1:
-            self.dx = 4 + self.dx
+            self.dx = 10 + self.dx
         elif dir == 2:
-            self.dy = 4 + self.dy
+            self.dy = 10 + self.dy
         elif dir == 3:
-            self.dy = -4 + self.dy
+            self.dy = -10 + self.dy
 
     def draw(self):
         width, height = 32, 32
