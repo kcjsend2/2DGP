@@ -8,18 +8,18 @@ class rocket:
         self.pos = [x, y]
         self.dir = dir
         self.image = gfw.load_image(gobj.RES_DIR + 'Rocket.png')
-        self.acc = 0.3
+        self.acc = 8
         self.dx = dx
         self.dy = dy
 
         if dir == 0:
-            self.dx = -1 + self.dx
+            self.dx = -4 + self.dx
         elif dir == 1:
-            self.dx = 1 + self.dx
+            self.dx = 4 + self.dx
         elif dir == 2:
-            self.dy = 1 + self.dy
+            self.dy = 4 + self.dy
         elif dir == 3:
-            self.dy = -1 + self.dy
+            self.dy = -4 + self.dy
 
     def draw(self):
         width, height = 32, 32
@@ -37,13 +37,13 @@ class rocket:
 
     def update(self):
         if self.dir == 0:
-            self.dx = self.dx - self.acc
+            self.dx += (self.dx - self.acc) * gfw.delta_time
         elif self.dir == 1:
-            self.dx = self.dx + self.acc
+            self.dx += (self.dx + self.acc) * gfw.delta_time
         elif self.dir == 2:
-            self.dy = self.dy + self.acc
+            self.dy += (self.dy + self.acc) * gfw.delta_time
         elif self.dir == 3:
-            self.dy = self.dy - self.acc
+            self.dy += (self.dy - self.acc) * gfw.delta_time
 
         self.pos[0] = self.dx + self.pos[0]
         self.pos[1] = self.dy + self.pos[1]

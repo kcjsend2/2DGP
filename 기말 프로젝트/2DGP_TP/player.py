@@ -31,11 +31,11 @@ class Player:
     isLeft = False
     isRight = False
     isFalling = False
-    gravity = 0.08
+    gravity = 6
 
     SelectedWeapon = 1
 
-    Boots = False
+    Boots = True
     Rocketlauncher = True
     GaussGun = True
 
@@ -164,7 +164,7 @@ class Player:
             self.delta = (self.delta[0], 0)
 
         if self.isFalling:
-            self.delta = (self.delta[0], self.delta[1] - self.gravity)
+            self.delta = (self.delta[0], self.delta[1] - self.gravity * gfw.delta_time)
 
         x, y = self.pos
         dx, dy = self.delta
