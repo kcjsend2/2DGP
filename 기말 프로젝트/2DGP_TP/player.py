@@ -198,7 +198,7 @@ class Player:
              self.delay_frame = 12
 
     def fire(self):
-        if self.SelectedWeapon == 1 and gfw.world.count_at(1) < 3:
+        if self.SelectedWeapon == 2 and gfw.world.count_at(1) < 3:
             if self.action == 0 or self.action == 2:
                 b = rocket(self.pos[0] - 50, self.pos[1], 0, self.velocity[0], 0)
                 if self.isUp is True:
