@@ -253,7 +253,7 @@ class Player:
             if self.jumpCount > 0:
                 self.jumpCount -= 1
                 self.isJumping = True
-                self.delta = (self.delta[0], 3)
+                self.delta = (self.delta[0], 2.5)
 
         elif pair == Player.KEYDOWN_A:
             if self.Rocketlauncher:
