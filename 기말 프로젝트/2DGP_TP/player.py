@@ -10,8 +10,12 @@ class Player:
     KEYDOWN_X = (SDL_KEYDOWN, SDLK_x)
     KEYDOWN_LEFT = (SDL_KEYDOWN, SDLK_LEFT)
     KEYDOWN_RIGHT = (SDL_KEYDOWN, SDLK_RIGHT)
+    KEYDOWN_UP = (SDL_KEYDOWN, SDLK_UP)
+    KEYDOWN_DOWN = (SDL_KEYDOWN, SDLK_DOWN)
     KEYUP_LEFT = (SDL_KEYUP, SDLK_LEFT)
     KEYUP_RIGHT = (SDL_KEYUP, SDLK_RIGHT)
+    KEYUP_UP = (SDL_KEYUP, SDLK_UP)
+    KEYUP_DOWN = (SDL_KEYUP, SDLK_DOWN)
     KEYDOWN_A = (SDL_KEYDOWN, SDLK_a)
     KEYDOWN_S = (SDL_KEYDOWN, SDLK_s)
 
@@ -22,6 +26,8 @@ class Player:
     image = None
     weaponImage = None
 
+    isUp = False
+    isDown = False
     isLeft = False
     isRight = False
     isFalling = False
@@ -84,16 +90,44 @@ class Player:
         weaponWidth = 36
         weaponHeight = 13
         flip = ''
-        offSet = 8
+        rad = 0
+        xoffSet = 8
+        yoffset = 0
+
+
+        if self.action == 2 or self.action == 0:
+            if self.isUp is True:
+                rad = -3.141592 / 2
+                yoffset = -20
+                if self.isJumping:
+                    sx = 5 * width
+            if self.isDown is True and self.isJumping is True:
+                rad = 3.141592 / 2
+                yoffset = 20
+                sx = 6 * width
+
 
         if self.action == 3 or self.action == 1:
             flip = 'h'
-            offSet = -8
+            xoffSet = -8
+            if self.isUp is True:
+                rad = 3.141592 / 2
+                yoffset = -20
+                if self.isJumping:
+                    sx = 5 * width
+            if self.isDown is True and self.isJumping is True:
+                rad = -3.141592 / 2
+                yoffset = 20
+                sx = 6 * width
+
 
         if self.SelectedWeapon != 0:
             self.weaponImage.clip_composite_draw((self.SelectedWeapon - 1) * weaponWidth, 0,
                                                  weaponWidth * self.SelectedWeapon, weaponHeight,
-                                                 0, flip, self.pos[0] - offSet, self.pos[1] - 3, 72, 26)
+                                                 rad, flip, self.pos[0] - xoffSet, self.pos[1] - 3 - yoffset, 72, 26)
+
+        if self.isUp is True and self.isJumping is False:
+            sx += width * 3
 
         self.image.clip_draw(sx, sy, width, height, *self.pos, 64, 64)
 
@@ -119,8 +153,8 @@ class Player:
 
         elif self.pos[1] < 100:
             self.pos = (self.pos[0], 100)
-            self.isFalling = 0
-            self.isJumping = 0
+            self.isFalling = False
+            self.isJumping = False
 
             if self.Boots:
                 self.jumpCount = 2
@@ -164,11 +198,20 @@ class Player:
              self.delay_frame = 12
 
     def fire(self):
-        if self.SelectedWeapon == 1:
+        if self.SelectedWeapon == 1 and gfw.world.count_at(1) < 3:
             if self.action == 0 or self.action == 2:
-                b = rocket(self.pos[0], self.pos[1], 0)
+                b = rocket(self.pos[0] - 50, self.pos[1], 0, self.velocity[0], 0)
+                if self.isUp is True:
+                    b = rocket(self.pos[0], self.pos[1] + 50, 2, 0, self.velocity[1])
+                if self.isDown is True and self.isJumping is True:
+                    b = rocket(self.pos[0], self.pos[1] - 50, 3, 0, -self.velocity[1])
+
             elif self.action == 1 or self.action == 3:
-                b = rocket(self.pos[0], self.pos[1], 3)
+                b = rocket(self.pos[0] + 50, self.pos[1], 1, self.velocity[0], 0)
+                if self.isUp is True:
+                    b = rocket(self.pos[0], self.pos[1] + 50, 2, 0, self.velocity[1])
+                if self.isDown is True and self.isJumping is True:
+                    b = rocket(self.pos[0], self.pos[1] - 50, 3, 0, -self.velocity[1])
 
             gfw.world.add(gfw.layer.bullet, b)
 
@@ -195,6 +238,16 @@ class Player:
             if self.action == 0:
                 self.action = 2
             Player.isLeft = 0
+
+        elif pair == Player.KEYDOWN_UP:
+            Player.isUp = True
+        elif pair == Player.KEYUP_UP:
+            Player.isUp = False
+
+        elif pair == Player.KEYDOWN_DOWN:
+            Player.isDown = True
+        elif pair == Player.KEYUP_DOWN:
+            Player.isDown = False
 
         elif pair == Player.KEYDOWN_Z:
             if self.jumpCount > 0:
