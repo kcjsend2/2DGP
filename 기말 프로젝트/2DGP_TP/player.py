@@ -3,6 +3,7 @@ from pico2d import *
 import gfw
 import gobj
 from Rocket import *
+from Gauss import *
 
 
 class Player:
@@ -41,6 +42,7 @@ class Player:
 
     #constructor
     def __init__(self):
+        self.GaussDelay = 1.5
         self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.delta = 0, 0
         self.target = None
@@ -194,10 +196,37 @@ class Player:
         else:
             self.fidx = 0
 
-        if (self.delay_frame == 0):
+        if self.delay_frame == 0:
              self.delay_frame = 12
 
+        if self.GaussDelay < 1.5:
+            self.GaussDelay += gfw.delta_time
+        else:
+            self.GaussDelay = 1.5
+
     def fire(self):
+        if self.SelectedWeapon == 1 and self.GaussDelay == 1.5:
+            self.GaussDelay = 0
+            if self.action == 0 or self.action == 2:
+                g = Gauss(self.pos[0] - 50, self.pos[1], 0)
+                if not self.isUp and not self.isDown:
+                    self.delta = self.delta[0] + 5, self.delta[1]
+                if self.isUp is True:
+                    g = Gauss(self.pos[0], self.pos[1] + 50, 2)
+                if self.isDown is True and self.isJumping is True:
+                    g = Gauss(self.pos[0], self.pos[1] - 50, 3)
+
+            elif self.action == 1 or self.action == 3:
+                g = Gauss(self.pos[0] + 50, self.pos[1], 1)
+                if not self.isUp and not self.isDown:
+                    self.delta = self.delta[0] - 5, self.delta[1]
+                if self.isUp is True:
+                    g = Gauss(self.pos[0], self.pos[1] + 50, 2)
+                if self.isDown is True and self.isJumping is True:
+                    g = Gauss(self.pos[0], self.pos[1] - 50, 3)
+
+            gfw.world.add(gfw.layer.bullet, g)
+
         if self.SelectedWeapon == 2 and gfw.world.count_at(1) < 3:
             if self.action == 0 or self.action == 2:
                 b = rocket(self.pos[0] - 50, self.pos[1], 0, self.velocity[0], 0)
