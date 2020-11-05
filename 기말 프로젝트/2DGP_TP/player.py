@@ -42,7 +42,7 @@ class Player:
 
     #constructor
     def __init__(self):
-        self.GaussDelay = 1.5
+        self.GaussDelay = 1.0
         self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.delta = 0, 0
         self.target = None
@@ -209,8 +209,14 @@ class Player:
             self.GaussDelay = 0
             if self.action == 0 or self.action == 2:
                 g = Gauss(self.pos[0] - 50, self.pos[1], 0)
+
                 if not self.isUp and not self.isDown:
                     self.delta = self.delta[0] + 5, self.delta[1]
+                elif self.isUp:
+                    self.delta = self.delta[0], self.delta[1] - 1
+                elif self.isDown:
+                    self.delta = self.delta[0], self.delta[1] + 1
+
                 if self.isUp is True:
                     g = Gauss(self.pos[0], self.pos[1] + 50, 2)
                 if self.isDown is True and self.isJumping is True:
@@ -218,8 +224,14 @@ class Player:
 
             elif self.action == 1 or self.action == 3:
                 g = Gauss(self.pos[0] + 50, self.pos[1], 1)
+
                 if not self.isUp and not self.isDown:
                     self.delta = self.delta[0] - 5, self.delta[1]
+                elif self.isUp:
+                    self.delta = self.delta[0], self.delta[1] - 1
+                elif self.isDown:
+                    self.delta = self.delta[0], self.delta[1] + 1
+
                 if self.isUp is True:
                     g = Gauss(self.pos[0], self.pos[1] + 50, 2)
                 if self.isDown is True and self.isJumping is True:
