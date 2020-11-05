@@ -3,8 +3,42 @@ from pico2d import *
 import gobj
 
 
+class tail:
+    def __init__(self, x, y, Offset):
+        self.pos = [x, y]
+        self.image = gfw.load_image(gobj.RES_DIR + 'RocketTail.png')
+        self.fidx = 0
+        self.stime = 0
+        self.isOffset = Offset
+
+    def draw(self):
+        width, height = 16, 16
+        sx = self.fidx * 16
+        sy = 0
+
+        self.image.clip_draw(sx, sy, width, height, self.pos[0], self.pos[1], 20, 20)
+
+    def update(self):
+        self.stime += gfw.delta_time
+
+        for i in range(3):
+            if self.stime > 0.1 * i / 3:
+
+                if self.isOffset:
+                    self.fidx = i
+
+                else:
+                    self.fidx = i + 3
+
+        if self.stime > 0.2:
+            self.remove()
+
+    def remove(self):
+        gfw.world.remove(self)
+
 class rocket:
     def __init__(self, x, y, dir, dx, dy):
+        self.toff = 0
         self.pos = [x, y]
         self.dir = dir
         self.image = gfw.load_image(gobj.RES_DIR + 'Rocket.png')
@@ -38,15 +72,31 @@ class rocket:
     def update(self):
         if self.dir == 0:
             self.dx += (self.dx - self.acc) * gfw.delta_time
+            t = tail(self.pos[0] + 10, self.pos[1], self.toff)
+            gfw.world.add(gfw.layer.effect, t )
+
         elif self.dir == 1:
             self.dx += (self.dx + self.acc) * gfw.delta_time
+            t = tail(self.pos[0] - 10, self.pos[1], self.toff)
+            gfw.world.add(gfw.layer.effect, t)
+
         elif self.dir == 2:
             self.dy += (self.dy + self.acc) * gfw.delta_time
+            t = tail(self.pos[0], self.pos[1] - 10, self.toff)
+            gfw.world.add(gfw.layer.effect, t)
+
         elif self.dir == 3:
             self.dy += (self.dy - self.acc) * gfw.delta_time
+            t = tail(self.pos[0], self.pos[1] + 10, self.toff)
+            gfw.world.add(gfw.layer.effect, t)
 
         self.pos[0] = self.dx + self.pos[0]
         self.pos[1] = self.dy + self.pos[1]
+
+        if self.toff:
+            self.toff = False
+        else:
+            self.toff = True
 
         if self.pos[0] > get_canvas_width() or self.pos[1] > get_canvas_height() or self.pos[0] < 0 or self.pos[1] < 0:
             self.remove()

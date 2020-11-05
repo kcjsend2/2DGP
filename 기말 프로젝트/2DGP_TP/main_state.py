@@ -10,7 +10,7 @@ canvas_height = 960
 
 
 def enter():
-    gfw.world.init(['bg', 'bullet', 'platform', 'player'])
+    gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player'])
 
     global player
     player = Player()
