@@ -16,7 +16,7 @@ class tail:
         sx = self.fidx * 16
         sy = 0
 
-        self.image.clip_draw(sx, sy, width, height, self.pos[0], self.pos[1], 20, 20)
+        self.image.clip_draw(sx, sy, width, height, self.pos[0], self.pos[1], 10, 10)
 
     def update(self):
         self.stime += gfw.delta_time
@@ -37,6 +37,9 @@ class tail:
         gfw.world.remove(self)
 
 class rocket:
+    LRBB = [-16, -8, 16, 8]
+    UDBB = [-8, -16, 8, 16]
+
     def __init__(self, x, y, dir, dx, dy):
         self.toff = 0
         self.pos = [x, y]
@@ -61,13 +64,13 @@ class rocket:
         sy = 0
 
         if self.dir == 0:
-            self.image.clip_draw(sx, sy, width, height, self.pos[0], self.pos[1], 64, 64)
+            self.image.clip_draw(sx, sy, width, height, self.pos[0], self.pos[1], 32, 32)
         elif self.dir == 1:
-            self.image.clip_composite_draw(sx, sy, width, height, 0, 'h', self.pos[0], self.pos[1], 64, 64)
+            self.image.clip_composite_draw(sx, sy, width, height, 0, 'h', self.pos[0], self.pos[1], 32, 32)
         elif self.dir == 2:
-            self.image.clip_composite_draw(sx, sy, width, height, -3.141592 / 2, '', self.pos[0], self.pos[1], 64, 64)
+            self.image.clip_composite_draw(sx, sy, width, height, -3.141592 / 2, '', self.pos[0], self.pos[1], 32, 32)
         elif self.dir == 3:
-            self.image.clip_composite_draw(sx, sy, width, height, 3.141592 / 2, '', self.pos[0], self.pos[1], 64, 64)
+            self.image.clip_composite_draw(sx, sy, width, height, 3.141592 / 2, '', self.pos[0], self.pos[1], 32, 32)
 
     def update(self):
         if self.dir == 0:
@@ -103,3 +106,13 @@ class rocket:
 
     def remove(self):
         gfw.world.remove(self)
+
+    def get_bb(self):
+        l, b, r, t = 0, 0, 0, 0
+        if self.dir == 0 or self.dir == 1:
+            l, b, r, t = rocket.LRBB
+        elif self.dir == 2 or self.dir == 3:
+            l, b, r, t = rocket.UDBB
+
+        x, y = self.pos
+        return x + l, y + b, x + r, y + t

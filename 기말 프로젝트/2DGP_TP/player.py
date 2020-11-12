@@ -40,6 +40,8 @@ class Player:
     Rocketlauncher = True
     GaussGun = True
 
+    BB = [-16, -16, 16, 16]
+
     #constructor
     def __init__(self):
         self.GaussDelay = 1.0
@@ -126,18 +128,18 @@ class Player:
         if self.SelectedWeapon != 0:
             self.weaponImage.clip_composite_draw((self.SelectedWeapon - 1) * weaponWidth, 0,
                                                  weaponWidth * self.SelectedWeapon, weaponHeight,
-                                                 rad, flip, self.pos[0] - xoffSet, self.pos[1] - 3 - yoffset, 72, 26)
+                                                 rad, flip, self.pos[0] - xoffSet, self.pos[1] - 3 - yoffset, 36, 13)
 
         if self.isUp is True and self.isJumping is False:
             sx += width * 3
 
-        self.image.clip_draw(sx, sy, width, height, *self.pos, 64, 64)
+        self.image.clip_draw(sx, sy, width, height, *self.pos, 32, 32)
 
     def update(self):
-        if Player.isRight and self.delta[0] < 2.0:
+        if Player.isRight and self.delta[0] < 1.0:
             self.delta = gobj.point_add(self.delta, (0.06, 0))
 
-        if Player.isLeft and self.delta[0] > -2.0:
+        if Player.isLeft and self.delta[0] > -1.0:
             self.delta = gobj.point_add(self.delta, (-0.06, 0))
 
         if not Player.isRight and self.delta[0] > 0:
@@ -211,11 +213,11 @@ class Player:
                 g = Gauss(self.pos[0] - 50, self.pos[1], 0)
 
                 if not self.isUp and not self.isDown:
-                    self.delta = self.delta[0] + 5, self.delta[1]
+                    self.delta = self.delta[0] + 3, self.delta[1]
                 elif self.isUp:
-                    self.delta = self.delta[0], self.delta[1] - 1
+                    self.delta = self.delta[0], self.delta[1] - 0.5
                 elif self.isDown:
-                    self.delta = self.delta[0], self.delta[1] + 1
+                    self.delta = self.delta[0], self.delta[1] + 0.5
 
                 if self.isUp is True:
                     g = Gauss(self.pos[0], self.pos[1] + 50, 2)
@@ -226,11 +228,11 @@ class Player:
                 g = Gauss(self.pos[0] + 50, self.pos[1], 1)
 
                 if not self.isUp and not self.isDown:
-                    self.delta = self.delta[0] - 5, self.delta[1]
+                    self.delta = self.delta[0] - 3, self.delta[1]
                 elif self.isUp:
-                    self.delta = self.delta[0], self.delta[1] - 1
+                    self.delta = self.delta[0], self.delta[1] - 0.5
                 elif self.isDown:
-                    self.delta = self.delta[0], self.delta[1] + 1
+                    self.delta = self.delta[0], self.delta[1] + 0.5
 
                 if self.isUp is True:
                     g = Gauss(self.pos[0], self.pos[1] + 50, 2)
@@ -294,7 +296,7 @@ class Player:
             if self.jumpCount > 0:
                 self.jumpCount -= 1
                 self.isJumping = True
-                self.delta = (self.delta[0], 2.5)
+                self.delta = (self.delta[0], 2.0)
 
         elif pair == Player.KEYDOWN_A:
             if self.Rocketlauncher:
@@ -305,9 +307,7 @@ class Player:
         elif pair == Player.KEYDOWN_X:
             self.fire()
 
-
     def get_bb(self):
-        hw = 20
-        hh = 40
+        l, b, r, t = Player.BB
         x, y = self.pos
-        return x - hw, y - hh, x + hw, y + hh
+        return x + l, y + b, x + r, y + t

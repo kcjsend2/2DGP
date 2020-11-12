@@ -26,13 +26,13 @@ class Gauss:
         sy = 0
 
         if self.dir == 0:
-            self.image.clip_draw(sx, sy, width, height, self.pos[0], self.pos[1], 128, 8)
+            self.image.clip_draw(sx, sy, width, height, self.pos[0], self.pos[1], 64, 4)
         elif self.dir == 1:
-            self.image.clip_composite_draw(sx, sy, width, height, 0, 'h', self.pos[0], self.pos[1], 128, 8)
+            self.image.clip_composite_draw(sx, sy, width, height, 0, 'h', self.pos[0], self.pos[1], 64, 4)
         elif self.dir == 2:
-            self.image.clip_composite_draw(sx, sy, width, height, -3.141592 / 2, '', self.pos[0], self.pos[1], 128, 8)
+            self.image.clip_composite_draw(sx, sy, width, height, -3.141592 / 2, '', self.pos[0], self.pos[1], 64, 4)
         elif self.dir == 3:
-            self.image.clip_composite_draw(sx, sy, width, height, 3.141592 / 2, '', self.pos[0], self.pos[1], 128, 8)
+            self.image.clip_composite_draw(sx, sy, width, height, 3.141592 / 2, '', self.pos[0], self.pos[1], 64, 4)
 
     def update(self):
         self.pos[0] = self.dx * gfw.delta_time + self.pos[0]
