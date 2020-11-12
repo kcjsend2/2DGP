@@ -2,12 +2,10 @@ import gfw
 from pico2d import *
 from player import Player
 from background import *
-from ImageSheet import *
 import gobj
 
 canvas_width = 1280
 canvas_height = 960
-
 
 def enter():
     gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player'])
@@ -31,7 +29,8 @@ def draw():
 
 def handle_event(e):
     global player
-    # prev_dx = boy.dx
+    global TileSetMode
+
     if e.type == SDL_QUIT:
         gfw.quit()
     elif e.type == SDL_KEYDOWN:

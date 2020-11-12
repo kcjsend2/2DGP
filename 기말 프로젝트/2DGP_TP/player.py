@@ -152,6 +152,7 @@ class Player:
             if self.delta[0] > -0.1:
                 self.delta = (0, self.delta[1])
 
+        #타일과 충돌처리 필요
         if self.pos[1] > 100:
             self.isFalling = 1
 
