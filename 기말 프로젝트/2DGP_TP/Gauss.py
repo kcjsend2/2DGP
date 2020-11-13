@@ -38,8 +38,6 @@ class Gauss:
         self.pos[0] = self.dx * gfw.delta_time + self.pos[0]
         self.pos[1] = self.dy * gfw.delta_time + self.pos[1]
 
-        if self.pos[0] > get_canvas_width() or self.pos[1] > get_canvas_height() or self.pos[0] < 0 or self.pos[1] < 0:
-            self.remove()
 
     def remove(self):
         gfw.world.remove(self)
