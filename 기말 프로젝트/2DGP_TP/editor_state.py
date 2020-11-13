@@ -23,8 +23,8 @@ def enter():
     with open('MapData.json', 'r') as fp:
         data = json.load(fp)
         for d in data:
-            t = Tile(d.x, d.y, d.sx, d.sy, d.w, d.h, d.isCollision)
-            gfw.world.add('platfrom', t)
+            t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'])
+            gfw.world.add(gfw.layer.platform, t)
 
 
 def update():
@@ -32,6 +32,8 @@ def update():
 
 
 def draw():
+    image = gfw.image.load(gobj.RES_DIR + '/PrtWhite.png')
+    image.clip_draw_to_origin(horzSelected * 32, VertSelected * 32, 32, 32, 0, canvas_height - 64, 64, 64)
     gfw.world.draw()
 
 
@@ -53,21 +55,27 @@ def handle_event(e):
             horzSelected -= 1
         elif e.key == SDLK_RIGHT and horzSelected < 14:
             horzSelected += 1
-        elif e.key == SDLK_UP and VertSelected > 0:
-            VertSelected -= 1
-        elif e.key == SDLK_DOWN and VertSelected < 10:
+        elif e.key == SDLK_UP and VertSelected < 9:
             VertSelected += 1
+        elif e.key == SDLK_DOWN and VertSelected > 0:
+            VertSelected -= 1
         elif e.key == SDLK_s:
-            save_Tile()
+            save_tile()
     elif e.type == SDL_MOUSEBUTTONDOWN:
-        if e.key == SDL_BUTTON_LEFT:
-
+        if e.button == SDL_BUTTON_LEFT:
+            set_tile(e.x, get_canvas_height() - e.y, horzSelected * 32, VertSelected * 32, CollisionMode)
 
 
 def exit():
     pass
 
-def save_Tile():
+
+def set_tile(x, y, sx, sy, collision):
+    t = Tile(x, y, sx, sy, collision)
+    gfw.world.add(gfw.layer.platform, t)
+
+
+def save_tile():
     tile = gfw.world.objects_at(gfw.layer.platform)
     js_tiles = [t.dictionary() for t in tile]
 
