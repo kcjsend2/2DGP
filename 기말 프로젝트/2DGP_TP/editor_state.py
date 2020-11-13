@@ -17,6 +17,11 @@ VertSelected = 0
 global CollisionMode
 CollisionMode = False
 
+global lDown
+lDown = False
+
+global rDown
+rDown = False
 
 def enter():
     gfw.world.init(['platform'])
@@ -32,15 +37,17 @@ def update():
 
 
 def draw():
+    gfw.world.draw()
     image = gfw.image.load(gobj.RES_DIR + '/PrtWhite.png')
     image.clip_draw_to_origin(horzSelected * 32, VertSelected * 32, 32, 32, 0, canvas_height - 64, 64, 64)
-    gfw.world.draw()
 
 
 def handle_event(e):
     global CollisionMode
     global horzSelected
     global VertSelected
+    global lDown
+    global rDown
 
     if e.type == SDL_QUIT:
         gfw.quit()
@@ -63,17 +70,81 @@ def handle_event(e):
             save_tile()
     elif e.type == SDL_MOUSEBUTTONDOWN:
         if e.button == SDL_BUTTON_LEFT:
-            set_tile(e.x, get_canvas_height() - e.y, horzSelected * 32, VertSelected * 32, CollisionMode)
+            lDown = True
+            set_tile(e)
+        if e.button == SDL_BUTTON_RIGHT:
+            rDown = True
+            del_tile(e)
+
+    elif e.type == SDL_MOUSEBUTTONUP:
+        if e.button == SDL_BUTTON_LEFT:
+            lDown = False
+        if e.button == SDL_BUTTON_RIGHT:
+            rDown = False
+
+    elif e.type == SDL_MOUSEMOTION:
+        if lDown:
+            set_tile(e)
+        elif rDown:
+            del_tile(e)
 
 
 def exit():
     pass
 
 
-def set_tile(x, y, sx, sy, collision):
-    t = Tile(x, y, sx, sy, collision)
-    gfw.world.add(gfw.layer.platform, t)
+def set_tile(e):
+    mx = 0
+    my = 0
+    p2y = get_canvas_height() - e.y
 
+    ibreak = False
+
+    for i in range(40):
+        for j in range(30):
+            if i * 32 < e.x < (i + 1) * 32 and j * 32 < p2y < (j + 1) * 32:
+                mx = i
+                my = j
+                ibreak = True
+                break
+        if ibreak:
+            break
+
+    isFill = False
+    for p in gfw.world.objects_at(gfw.layer.platform):
+        if p.tpos == [mx, my]:
+            isFill = True
+
+    if not isFill:
+        t = Tile(mx * 32, my * 32, horzSelected * 32, VertSelected * 32, CollisionMode)
+        gfw.world.add(gfw.layer.platform, t)
+
+
+def del_tile(e):
+    mx = 0
+    my = 0
+    p2y = get_canvas_height() - e.y
+
+    ibreak = False
+
+    for i in range(40):
+        for j in range(30):
+            if i * 32 < e.x < (i + 1) * 32 and j * 32 < p2y < (j + 1) * 32:
+                mx = i
+                my = j
+                ibreak = True
+                break
+        if ibreak:
+            break
+
+    isFill = False
+    for p in gfw.world.objects_at(gfw.layer.platform):
+        if p.tpos == [mx, my]:
+            target = p
+            isFill = True
+
+    if isFill:
+        target.remove()
 
 def save_tile():
     tile = gfw.world.objects_at(gfw.layer.platform)

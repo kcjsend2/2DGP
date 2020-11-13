@@ -20,4 +20,8 @@ class Tile:
 
     def dictionary(self):
         x, y = self.pos
-        return {"x": x, "y": y, "sx": self.sx, "sy": self.sy, "isCollision": self.CollisionMode}
+        sx, sy = self.sPos
+        return {"x": x, "y": y, "sx": sx, "sy": sy, "isCollision": self.CollisionMode}
+
+    def remove(self):
+        gfw.world.remove(self)
