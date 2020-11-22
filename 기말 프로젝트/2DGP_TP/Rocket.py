@@ -1,6 +1,7 @@
 import gfw
 from pico2d import *
 import gobj
+import math
 
 
 class tail:
@@ -103,6 +104,14 @@ class rocket:
 
         if self.pos[0] > get_canvas_width() or self.pos[1] > get_canvas_height() or self.pos[0] < 0 or self.pos[1] < 0:
             self.remove()
+        for p in gfw.world.objects_at(gfw.layer.platform):
+            l, b, r, t = p.get_bb()
+            if l < self.pos[0] < r and t > self.pos[1] > b:
+                for pl in gfw.world.objects_at(gfw.layer.player):
+                    if math.sqrt(pow(pl.pos[0] - self.pos[0], 2) + pow(pl.pos[1] - self.pos[1], 2)) < 200 and self.pos[1] < pl.pos[1]:
+                        pl.delta = pl.delta[0], 3
+
+                self.remove()
 
     def remove(self):
         gfw.world.remove(self)

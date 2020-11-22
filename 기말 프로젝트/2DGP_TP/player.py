@@ -55,7 +55,7 @@ class Player:
         self.time = 0
         self.fidx = 0
         self.jumpCount = 0
-        self.isWalk = False
+        self.isWalGk = False
         self.isFalling = 1
         self.isJumping = False
         self.action = 2
@@ -184,15 +184,15 @@ class Player:
         if self.delay_frame == 0:
              self.delay_frame = 12
 
-        if self.GaussDelay < 1.5:
+        if self.GaussDelay < 1.0:
             self.GaussDelay += gfw.delta_time
         else:
-            self.GaussDelay = 1.5
+            self.GaussDelay = 1.0
 
         self.platform_collision()
 
     def fire(self):
-        if self.SelectedWeapon == 1 and self.GaussDelay == 1.5:
+        if self.SelectedWeapon == 1 and self.GaussDelay == 1.0:
             self.GaussDelay = 0
             if self.action == 0 or self.action == 2:
                 g = Gauss(self.pos[0] - 50, self.pos[1], 0)
@@ -226,7 +226,7 @@ class Player:
 
             gfw.world.add(gfw.layer.bullet, g)
 
-        if self.SelectedWeapon == 2 and gfw.world.count_at(1) < 3:
+        if self.SelectedWeapon == 2 and gfw.world.count_at(1) < 1:
             if self.action == 0 or self.action == 2:
                 b = rocket(self.pos[0] - 50, self.pos[1], 0, self.velocity[0], 0)
                 if self.isUp is True:
@@ -329,6 +329,7 @@ class Player:
                     break
                 elif b < pt < t:
                     self.delta = (self.delta[0], -self.delta[1])
+                    break
             else:
                 self.isFalling = 1
 
