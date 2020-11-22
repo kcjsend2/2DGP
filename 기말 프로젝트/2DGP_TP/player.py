@@ -150,8 +150,6 @@ class Player:
             if self.delta[0] > -0.1:
                 self.delta = (0, self.delta[1])
 
-        self.collision()
-
         if self.isFalling:
             self.delta = (self.delta[0], self.delta[1] - self.gravity * gfw.delta_time)
 
@@ -190,6 +188,8 @@ class Player:
             self.GaussDelay += gfw.delta_time
         else:
             self.GaussDelay = 1.5
+
+        self.platform_collision()
 
     def fire(self):
         if self.SelectedWeapon == 1 and self.GaussDelay == 1.5:
@@ -299,33 +299,36 @@ class Player:
         x, y = self.pos
         return x + l, y + b, x + r, y + t
 
-    def collision(self):
+    def platform_collision(self):
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
             pl, pb, pr, pt = self.get_bb()
-            if t - 16 <= pb <= t + 16 and l <= self.pos[0] <= r and p.CollisionMode:
-                if pb > t or pr < l or pl > r:
-                    self.isFalling = 1
+            if l < self.pos[0] < r and p.CollisionMode:
+                if b < pb < t:
+                    if pb > t or pr < l or pl > r:
+                        self.isFalling = 1
 
-                elif pb <= t:
-                    self.pos = (self.pos[0], t + 16)
-                    self.isFalling = False
-                    self.isJumping = False
+                    elif pb < t:
+                        self.pos = (self.pos[0], t + 16)
+                        self.isFalling = False
+                        self.isJumping = False
 
-                    if self.Boots:
-                        self.jumpCount = 2
-                    else:
-                        self.jumpCount = 1
+                        if self.Boots:
+                            self.jumpCount = 2
+                        else:
+                            self.jumpCount = 1
 
-                    if self.delta[1] < 0:
-                        self.delta = (self.delta[0], 0)
+                        if self.delta[1] < 0:
+                            self.delta = (self.delta[0], 0)
 
-                    if self.delta[0] > 1.0:
-                        self.delta = (self.delta[0] - 0.3, self.delta[1])
+                        if self.delta[0] > 1.0:
+                            self.delta = (self.delta[0] - 0.3, self.delta[1])
 
-                    elif self.delta[0] < -1.0:
-                        self.delta = (self.delta[0] + 0.3, self.delta[1])
-                break
+                        elif self.delta[0] < -1.0:
+                            self.delta = (self.delta[0] + 0.3, self.delta[1])
+                    break
+                elif b < pt < t:
+                    self.delta = (self.delta[0], -self.delta[1])
             else:
                 self.isFalling = 1
 
