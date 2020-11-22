@@ -282,6 +282,7 @@ class Player:
                 self.jumpCount -= 1
                 self.isJumping = True
                 self.delta = (self.delta[0], 2.0)
+                print("jump")
 
         elif pair == Player.KEYDOWN_A:
             if self.Rocketlauncher:
@@ -301,11 +302,11 @@ class Player:
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
             pl, pb, pr, pt = self.get_bb()
-            if t - 16 <= self.pos[1] - 8 <= t + 16 and l <= self.pos[0] <= r and p.CollisionMode:
-                if self.pos[1] > t + 16 or self.pos[0] < l or self.pos[0] > r:
+            if t - 16 <= pb <= t + 16 and l <= self.pos[0] <= r and p.CollisionMode:
+                if pb > t or pr < l or pl > r:
                     self.isFalling = 1
 
-                elif self.pos[1] < t + 16:
+                elif pb < t:
                     self.pos = (self.pos[0], t + 16)
                     self.isFalling = False
                     self.isJumping = False
@@ -329,7 +330,7 @@ class Player:
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
             pl, pb, pr, pt = self.get_bb()
-            if b <= pb < t and p.CollisionMode:
+            if b <= pb < t - 5 and p.CollisionMode:
                 if r > pr > l:
                     self.pos = (l - 16, self.pos[1])
                     self.delta = (0, self.delta[1])
