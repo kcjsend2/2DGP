@@ -40,6 +40,7 @@ def draw():
     gfw.world.draw()
     image = gfw.image.load(gobj.RES_DIR + '/PrtWhite.png')
     image.clip_draw_to_origin(horzSelected * 32, VertSelected * 32, 32, 32, 0, canvas_height - 64, 64, 64)
+    gobj.draw_collision_box()
 
 
 def handle_event(e):
@@ -60,7 +61,7 @@ def handle_event(e):
             CollisionMode = False
         elif e.key == SDLK_LEFT and horzSelected > 0:
             horzSelected -= 1
-        elif e.key == SDLK_RIGHT and horzSelected < 14:
+        elif e.key == SDLK_RIGHT and horzSelected < 15:
             horzSelected += 1
         elif e.key == SDLK_UP and VertSelected < 9:
             VertSelected += 1

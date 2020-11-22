@@ -2,6 +2,7 @@ import gfw
 from pico2d import *
 from player import Player
 from background import *
+from Tile import *
 import gobj
 
 canvas_width = 1280
@@ -16,6 +17,12 @@ def enter():
 
     bg = Background('bkMoon.png')
     gfw.world.add(gfw.layer.bg, bg)
+
+    with open('MapData.json', 'r') as fp:
+        data = json.load(fp)
+        for d in data:
+            t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'])
+            gfw.world.add(gfw.layer.platform, t)
 
 
 def update():

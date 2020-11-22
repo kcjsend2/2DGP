@@ -4,6 +4,7 @@ import gfw
 import gobj
 from Rocket import *
 from Gauss import *
+from Tile import *
 
 
 class Player:
@@ -42,7 +43,6 @@ class Player:
 
     BB = [-16, -16, 16, 16]
 
-    #constructor
     def __init__(self):
         self.GaussDelay = 1.0
         self.pos = get_canvas_width() // 2, get_canvas_height() // 2
@@ -56,6 +56,7 @@ class Player:
         self.fidx = 0
         self.jumpCount = 0
         self.isWalk = False
+        self.isFalling = 1
         self.isJumping = False
         self.action = 2
         self.velocity = 0, 0
@@ -98,7 +99,6 @@ class Player:
         xoffSet = 8
         yoffset = 0
 
-
         if self.action == 2 or self.action == 0:
             if self.isUp is True:
                 rad = -3.141592 / 2
@@ -109,7 +109,6 @@ class Player:
                 rad = 3.141592 / 2
                 yoffset = 20
                 sx = 6 * width
-
 
         if self.action == 3 or self.action == 1:
             flip = 'h'
@@ -123,7 +122,6 @@ class Player:
                 rad = -3.141592 / 2
                 yoffset = 20
                 sx = 6 * width
-
 
         if self.SelectedWeapon != 0:
             self.weaponImage.clip_composite_draw((self.SelectedWeapon - 1) * weaponWidth, 0,
@@ -152,21 +150,7 @@ class Player:
             if self.delta[0] > -0.1:
                 self.delta = (0, self.delta[1])
 
-        #타일과 충돌처리 필요
-        if self.pos[1] > 100:
-            self.isFalling = 1
-
-        elif self.pos[1] < 100:
-            self.pos = (self.pos[0], 100)
-            self.isFalling = False
-            self.isJumping = False
-
-            if self.Boots:
-                self.jumpCount = 2
-            else:
-                self.jumpCount = 1
-
-            self.delta = (self.delta[0], 0)
+        self.collision()
 
         if self.isFalling:
             self.delta = (self.delta[0], self.delta[1] - self.gravity * gfw.delta_time)
@@ -312,3 +296,43 @@ class Player:
         l, b, r, t = Player.BB
         x, y = self.pos
         return x + l, y + b, x + r, y + t
+
+    def collision(self):
+        for p in gfw.world.objects_at(gfw.layer.platform):
+            l, b, r, t = p.get_bb()
+            pl, pb, pr, pt = self.get_bb()
+            if t - 16 <= self.pos[1] - 8 <= t + 16 and l <= self.pos[0] <= r and p.CollisionMode:
+                if self.pos[1] > t + 16 or self.pos[0] < l or self.pos[0] > r:
+                    self.isFalling = 1
+
+                elif self.pos[1] < t + 16:
+                    self.pos = (self.pos[0], t + 16)
+                    self.isFalling = False
+                    self.isJumping = False
+
+                    if self.Boots:
+                        self.jumpCount = 2
+                    else:
+                        self.jumpCount = 1
+
+                    self.delta = (self.delta[0], 0)
+
+                    if self.delta[0] > 1.0:
+                        self.delta = (self.delta[0] - 0.3, self.delta[1])
+
+                    elif self.delta[0] < -1.0:
+                        self.delta = (self.delta[0] + 0.3, self.delta[1])
+                break
+            else:
+                self.isFalling = 1
+
+        for p in gfw.world.objects_at(gfw.layer.platform):
+            l, b, r, t = p.get_bb()
+            pl, pb, pr, pt = self.get_bb()
+            if b <= pb < t and p.CollisionMode:
+                if r > pr > l:
+                    self.pos = (l - 16, self.pos[1])
+                    self.delta = (0, self.delta[1])
+                if l < pl < r:
+                    self.pos = (r + 16, self.pos[1])
+                    self.delta = (0, self.delta[1])

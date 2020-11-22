@@ -2,6 +2,7 @@ from pico2d import *
 import gfw
 import gobj
 
+
 class Tile:
     def __init__(self, x, y, sx, sy, isCollision):
         self.width = 32
@@ -25,3 +26,10 @@ class Tile:
 
     def remove(self):
         gfw.world.remove(self)
+
+    def get_bb(self):
+        if self.CollisionMode:
+            x, y = self.pos
+            return x, y, x + 32, y + 32
+        else:
+            return 0, 0, 0, 0
