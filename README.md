@@ -148,6 +148,8 @@ Insights: https://github.com/kcjsend2/2DGP/graphs/commit-activity
 
 
 6. Game Object
+
+
 	+5-1 Player
 	
 		플레이어 객체입니다. 좌우 방향키로 움직이고, 점프해서 위아래 방향키로 위와 아래를 볼 수 있습니다.
