@@ -1617,6 +1617,20 @@
     "isCollision": true
   },
   {
+    "x": 800,
+    "y": 320,
+    "sx": 256,
+    "sy": 192,
+    "isCollision": true
+  },
+  {
+    "x": 832,
+    "y": 320,
+    "sx": 256,
+    "sy": 192,
+    "isCollision": true
+  },
+  {
     "x": 0,
     "y": 0,
     "sx": 32,
