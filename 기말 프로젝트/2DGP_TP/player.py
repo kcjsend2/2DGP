@@ -135,18 +135,18 @@ class Player:
 
     def update(self):
         if Player.isRight and self.delta[0] < 1.0:
-            self.delta = gobj.point_add(self.delta, (0.06, 0))
+            self.delta = gobj.point_add(self.delta, (6 * gfw.delta_time, 0))
 
         if Player.isLeft and self.delta[0] > -1.0:
-            self.delta = gobj.point_add(self.delta, (-0.06, 0))
+            self.delta = gobj.point_add(self.delta, (-6 * gfw.delta_time, 0))
 
         if not Player.isRight and self.delta[0] > 0:
-            self.delta = gobj.point_add(self.delta, (-0.06, 0))
+            self.delta = gobj.point_add(self.delta, (-6 * gfw.delta_time, 0))
             if self.delta[0] < 0.1:
                 self.delta = (0, self.delta[1])
 
         if not Player.isLeft and self.delta[0] < 0:
-            self.delta = gobj.point_add(self.delta, (0.06, 0))
+            self.delta = gobj.point_add(self.delta, (6 * gfw.delta_time, 0))
             if self.delta[0] > -0.1:
                 self.delta = (0, self.delta[1])
 
