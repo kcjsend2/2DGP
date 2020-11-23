@@ -281,6 +281,7 @@ class Player:
             if self.jumpCount > 0:
                 self.jumpCount -= 1
                 self.isJumping = True
+                self.isFalling = True
                 self.delta = (self.delta[0], 2.0)
                 print("jump")
                 print(self.jumpCount)
@@ -303,10 +304,11 @@ class Player:
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
             pl, pb, pr, pt = self.get_bb()
+
             if l < self.pos[0] < r and p.CollisionMode:
                 if b < pb < t:
                     if pb > t or pr < l or pl > r:
-                        self.isFalling = 1
+                        self.isFalling = True
 
                     elif pb < t:
                         self.pos = (self.pos[0], t + 16)
@@ -331,12 +333,12 @@ class Player:
                     self.delta = (self.delta[0], -self.delta[1])
                     break
             else:
-                self.isFalling = 1
+                self.isFalling = True
 
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
             pl, pb, pr, pt = self.get_bb()
-            if b <= pb < t - 5 and p.CollisionMode:
+            if (b <= pb < t - 8 or b + 8 <= pt < t) and p.CollisionMode:
                 if r > pr > l:
                     self.pos = (l - 16, self.pos[1])
                     self.delta = (0, self.delta[1])
