@@ -77,7 +77,7 @@ class rocket:
         if self.dir == 0:
             self.dx += (self.dx - self.acc) * gfw.delta_time
             t = tail(self.pos[0] + 10, self.pos[1], self.toff)
-            gfw.world.add(gfw.layer.effect, t )
+            gfw.world.add(gfw.layer.effect, t)
 
         elif self.dir == 1:
             self.dx += (self.dx + self.acc) * gfw.delta_time
@@ -108,7 +108,8 @@ class rocket:
             l, b, r, t = p.get_bb()
             if l < self.pos[0] < r and t > self.pos[1] > b:
                 for pl in gfw.world.objects_at(gfw.layer.player):
-                    if math.sqrt(pow(pl.pos[0] - self.pos[0], 2) + pow(pl.pos[1] - self.pos[1], 2)) < 200 and self.pos[1] < pl.pos[1]:
+                    if math.sqrt(pow(pl.pos[0] - self.pos[0], 2) + pow(pl.pos[1] - self.pos[1], 2)) < 200\
+                            and self.pos[1] < pl.pos[1] - 10:
                         pl.delta = pl.delta[0], 3
 
                 self.remove()

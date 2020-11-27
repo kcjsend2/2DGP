@@ -283,8 +283,6 @@ class Player:
                 self.isJumping = True
                 self.isFalling = True
                 self.delta = (self.delta[0], 2.0)
-                print("jump")
-                print(self.jumpCount)
 
         elif pair == Player.KEYDOWN_A:
             if self.Rocketlauncher:
