@@ -8,6 +8,7 @@ import gobj
 canvas_width = 1280
 canvas_height = 960
 
+
 def enter():
     gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player'])
 

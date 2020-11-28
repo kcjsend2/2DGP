@@ -2,6 +2,7 @@ import gfw
 from pico2d import *
 from gobj import *
 
+
 class Background:
     def __init__(self, imageName):
         self.imageName = imageName

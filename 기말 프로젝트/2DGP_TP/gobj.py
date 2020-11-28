@@ -57,13 +57,20 @@ def draw_collision_box():
 			draw_rectangle(*obj.get_bb())
 
 
+def draw_collision_box(xOffset, yOffset):
+	for obj in gfw.world.all_objects():
+		if hasattr(obj, 'get_bb'):
+			l, b, r, t = obj.get_bb()
+			draw_rectangle(l - xOffset, b - yOffset, r - xOffset, t - yOffset)
+
+
 class ImageObject:
 	def __init__(self, imageName, pos):
 		self.image = gfw.image.load(RES_DIR + '/' + imageName)
 		self.pos = pos
 
-	def draw(self):
-		self.image.draw(*self.pos)
+	def draw(self, xOffset, yOffset):
+		self.image.draw(self.pos[0] + xOffset, self.pos[1] + yOffset)
 
 	def update(self):
 		pass

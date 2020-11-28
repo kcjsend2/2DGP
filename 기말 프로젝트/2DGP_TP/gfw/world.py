@@ -70,7 +70,6 @@ def draw():
     for obj in all_objects():
         obj.draw()
 
-
 def empty_trashcan():
     global trashcan
 

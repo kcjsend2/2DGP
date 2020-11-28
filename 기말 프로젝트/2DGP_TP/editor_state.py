@@ -8,6 +8,11 @@ from Tile import *
 canvas_width = 1280
 canvas_height = 960
 
+global xOffset
+xOffset = 0
+global yOffset
+yOffset = 0
+
 global horzSelected
 horzSelected = 0
 
@@ -37,10 +42,14 @@ def update():
 
 
 def draw():
-    gfw.world.draw()
+    global xOffset
+    global yOffset
+    for t in gfw.world.objects_at(gfw.layer.platform):
+        t.image.clip_draw_to_origin(*t.sPos, t.width, t.height, t.pos[0] - xOffset, t.pos[1] - yOffset)
+
     image = gfw.image.load(gobj.RES_DIR + '/PrtWhite.png')
     image.clip_draw_to_origin(horzSelected * 32, VertSelected * 32, 32, 32, 0, canvas_height - 64, 64, 64)
-    gobj.draw_collision_box()
+    gobj.draw_collision_box(xOffset, yOffset)
 
 
 def handle_event(e):
@@ -49,6 +58,8 @@ def handle_event(e):
     global VertSelected
     global lDown
     global rDown
+    global xOffset
+    global yOffset
 
     if e.type == SDL_QUIT:
         gfw.quit()
@@ -67,8 +78,20 @@ def handle_event(e):
             VertSelected += 1
         elif e.key == SDLK_DOWN and VertSelected > 0:
             VertSelected -= 1
-        elif e.key == SDLK_s:
+        elif e.key == SDLK_p:
             save_tile()
+
+        elif e.key == SDLK_w:
+            yOffset = yOffset + 32
+        elif e.key == SDLK_a:
+            if xOffset > 0:
+                xOffset = xOffset - 32
+        elif e.key == SDLK_s:
+            if yOffset > 0:
+                yOffset = yOffset - 32
+        elif e.key == SDLK_d:
+            xOffset = xOffset + 32
+
     elif e.type == SDL_MOUSEBUTTONDOWN:
         if e.button == SDL_BUTTON_LEFT:
             lDown = True
@@ -95,6 +118,9 @@ def exit():
 
 
 def set_tile(e):
+    global xOffset
+    global yOffset
+
     mx = 0
     my = 0
     p2y = get_canvas_height() - e.y
@@ -113,11 +139,11 @@ def set_tile(e):
 
     isFill = False
     for p in gfw.world.objects_at(gfw.layer.platform):
-        if p.tpos == [mx, my]:
+        if p.tpos == [mx + xOffset, my + yOffset]:
             isFill = True
 
     if not isFill:
-        t = Tile(mx * 32, my * 32, horzSelected * 32, VertSelected * 32, CollisionMode)
+        t = Tile(mx * 32 + xOffset, my * 32 + yOffset, horzSelected * 32, VertSelected * 32, CollisionMode)
         gfw.world.add(gfw.layer.platform, t)
 
 
