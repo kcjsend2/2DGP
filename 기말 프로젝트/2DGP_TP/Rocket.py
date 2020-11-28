@@ -50,6 +50,9 @@ class rocket:
         self.dx = dx
         self.dy = dy
 
+        self.xOffset = 0
+        self.yOffset = 0
+
         if dir == 0:
             self.dx = -10 + self.dx
         elif dir == 1:
@@ -97,6 +100,10 @@ class rocket:
         self.pos[0] = self.dx + self.pos[0]
         self.pos[1] = self.dy + self.pos[1]
 
+        for p in gfw.world.objects_at(gfw.layer.player):
+            self.xOffset = p.xOffset
+            self.yOffset = p.yOffset
+
         if self.toff:
             self.toff = False
         else:
@@ -125,4 +132,4 @@ class rocket:
             l, b, r, t = rocket.UDBB
 
         x, y = self.pos
-        return x + l, y + b, x + r, y + t
+        return x + l + self.xOffset, y + b + self.yOffset, x + r + self.xOffset, y + t + self.yOffset

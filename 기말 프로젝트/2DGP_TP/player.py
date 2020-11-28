@@ -64,8 +64,8 @@ class Player:
         self.xOffset = max(self.pos[0] - get_canvas_width(), 0)
         self.yOffset = max(self.pos[1] - get_canvas_height(), 0)
 
-        self.mx = t_max_x
-        self.my = t_max_y
+        self.mx = t_max_x + 32
+        self.my = t_max_y + 32
 
     def draw(self):
         width, height = 32, 32
@@ -162,13 +162,16 @@ class Player:
         x, y = self.pos
         dx, dy = self.delta
 
-        if x >= get_canvas_width() / 2 and self.mx - get_canvas_width() > self.xOffset:
+        if x + dx > get_canvas_width() / 2 and self.mx - get_canvas_width() > self.xOffset:
+            self.xOffset += dx * self.speed * gfw.delta_time
+            x = get_canvas_width() / 2
+        if x + dx < get_canvas_width() / 2 and self.xOffset > 0:
             self.xOffset += dx * self.speed * gfw.delta_time
             x = get_canvas_width() / 2
         else:
             x += dx * self.speed * gfw.delta_time
 
-        if y >= get_canvas_height() / 2 and self.my - get_canvas_height() > self.yOffset:
+        if y + dy > get_canvas_height() / 2 and self.my - get_canvas_height() > self.yOffset:
             self.yOffset += dy * self.speed * gfw.delta_time
             y = get_canvas_height() / 2
         else:
