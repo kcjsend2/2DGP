@@ -61,7 +61,10 @@ def draw_collision_box(xOffset, yOffset):
 	for obj in gfw.world.all_objects():
 		if hasattr(obj, 'get_bb'):
 			l, b, r, t = obj.get_bb()
-			draw_rectangle(l - xOffset, b - yOffset, r - xOffset, t - yOffset)
+			if hasattr(obj, 'jumpCount'):
+				draw_rectangle(*obj.get_bb())
+			else:
+				draw_rectangle(l - xOffset, b - yOffset, r - xOffset, t - yOffset)
 
 
 class ImageObject:

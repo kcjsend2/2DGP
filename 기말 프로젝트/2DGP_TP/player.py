@@ -43,7 +43,7 @@ class Player:
 
     BB = [-16, -16, 16, 16]
 
-    def __init__(self):
+    def __init__(self, t_max_x, t_max_y):
         self.GaussDelay = 1.0
         self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.delta = 0, 0
@@ -55,11 +55,17 @@ class Player:
         self.time = 0
         self.fidx = 0
         self.jumpCount = 0
-        self.isWalGk = False
+        self.isWalk = False
         self.isFalling = 1
         self.isJumping = False
         self.action = 2
         self.velocity = 0, 0
+
+        self.xOffset = max(self.pos[0] - get_canvas_width(), 0)
+        self.yOffset = max(self.pos[1] - get_canvas_height(), 0)
+
+        self.mx = t_max_x
+        self.my = t_max_y
 
     def draw(self):
         width, height = 32, 32
@@ -155,8 +161,19 @@ class Player:
 
         x, y = self.pos
         dx, dy = self.delta
-        x += dx * self.speed * gfw.delta_time
-        y += dy * self.speed * gfw.delta_time
+
+        if x >= get_canvas_width() / 2 and self.mx - get_canvas_width() > self.xOffset:
+            self.xOffset += dx * self.speed * gfw.delta_time
+            x = get_canvas_width() / 2
+        else:
+            x += dx * self.speed * gfw.delta_time
+
+        if y >= get_canvas_height() / 2 and self.my - get_canvas_height() > self.yOffset:
+            self.yOffset += dy * self.speed * gfw.delta_time
+            y = get_canvas_height() / 2
+        else:
+            y += dy * self.speed * gfw.delta_time
+
         self.delay_frame -= 1
 
         self.pos = x, y
@@ -303,6 +320,11 @@ class Player:
             l, b, r, t = p.get_bb()
             pl, pb, pr, pt = self.get_bb()
 
+            l -= self.xOffset
+            b -= self.yOffset
+            r -= self.xOffset
+            t -= self.yOffset
+
             if l < self.pos[0] < r and p.CollisionMode:
                 if b < pb < t:
                     if pb > t or pr < l or pl > r:
@@ -336,6 +358,12 @@ class Player:
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
             pl, pb, pr, pt = self.get_bb()
+
+            l -= self.xOffset
+            b -= self.yOffset
+            r -= self.xOffset
+            t -= self.yOffset
+
             if (b <= pb < t - 8 or b + 8 <= pt < t) and p.CollisionMode:
                 if r > pr > l:
                     self.pos = (l - 16, self.pos[1])

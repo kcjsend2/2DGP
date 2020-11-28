@@ -4,6 +4,9 @@ import gobj
 
 
 class Tile:
+    xOffset = 0
+    yOffset = 0
+
     def __init__(self, x, y, sx, sy, isCollision):
         self.width = 32
         self.height = 32
@@ -14,10 +17,12 @@ class Tile:
         self.CollisionMode = isCollision
 
     def update(self):
-        pass
+        for p in gfw.world.objects_at(gfw.layer.player):
+            Tile.xOffset = p.xOffset
+            Tile.yOffset = p.yOffset
 
     def draw(self):
-        self.image.clip_draw_to_origin(*self.sPos, self.width, self.height, *self.pos)
+        self.image.clip_draw_to_origin(*self.sPos, self.width, self.height, self.pos[0] - Tile.xOffset, self.pos[1] - Tile.yOffset)
 
     def dictionary(self):
         x, y = self.pos

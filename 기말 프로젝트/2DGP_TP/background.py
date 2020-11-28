@@ -4,11 +4,11 @@ from gobj import *
 
 
 class Background:
-    def __init__(self, imageName):
+    def __init__(self, imageName, t_max_x, t_max_y):
         self.imageName = imageName
         self.image = gfw.image.load(res(imageName))
         self.target = None
-        self.cw, self.ch = get_canvas_width(), get_canvas_height()
+        self.cw, self.ch = t_max_x, t_max_y
         self.win_rect = 0, 0, self.cw, self.ch
         self.center = self.image.w // 2, self.image.h // 2
         hw, hh = self.cw // 2, self.    ch // 2
