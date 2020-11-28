@@ -139,7 +139,7 @@ def set_tile(e):
 
     isFill = False
     for p in gfw.world.objects_at(gfw.layer.platform):
-        if p.tpos == [mx + xOffset, my + yOffset]:
+        if p.tpos == [mx + xOffset / 32, my + yOffset / 32]:
             isFill = True
 
     if not isFill:
@@ -148,6 +148,9 @@ def set_tile(e):
 
 
 def del_tile(e):
+    global xOffset
+    global yOffset
+
     mx = 0
     my = 0
     p2y = get_canvas_height() - e.y
@@ -166,7 +169,8 @@ def del_tile(e):
 
     isFill = False
     for p in gfw.world.objects_at(gfw.layer.platform):
-        if p.tpos == [mx, my]:
+        if p.tpos == [mx + xOffset / 32, my + yOffset / 32]:
+            print(p.tpos)
             target = p
             isFill = True
 
