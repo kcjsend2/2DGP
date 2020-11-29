@@ -17,9 +17,10 @@ class Tile:
         self.CollisionMode = isCollision
 
     def update(self):
-        for p in gfw.world.objects_at(gfw.layer.player):
-            Tile.xOffset = p.xOffset
-            Tile.yOffset = p.yOffset
+        #for p in gfw.world.objects_at(gfw.layer.player):
+            #Tile.xOffset = p.xOffset
+            #Tile.yOffset = p.yOffset
+        pass
 
     def draw(self):
         self.image.clip_draw_to_origin(*self.sPos, self.width, self.height, self.pos[0] - Tile.xOffset, self.pos[1] - Tile.yOffset)

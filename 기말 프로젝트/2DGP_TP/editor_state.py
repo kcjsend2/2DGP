@@ -183,6 +183,7 @@ def save_tile():
 
     with open('MapData.json', 'w') as f:
         json.dump(js_tiles, f, indent=2)
+    print("File Saved!")
 
 
 if __name__ == '__main__':

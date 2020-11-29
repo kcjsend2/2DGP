@@ -2707,19 +2707,5 @@
     "sx": 32,
     "sy": 224,
     "isCollision": true
-  },
-  {
-    "x": 864,
-    "y": 928,
-    "sx": 288,
-    "sy": 192,
-    "isCollision": true
-  },
-  {
-    "x": 864,
-    "y": 960,
-    "sx": 288,
-    "sy": 224,
-    "isCollision": true
   }
 ]
