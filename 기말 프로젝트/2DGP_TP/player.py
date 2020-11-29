@@ -45,7 +45,7 @@ class Player:
 
     def __init__(self, t_max_x, t_max_y):
         self.GaussDelay = 1.0
-        self.pos = get_canvas_width() // 2, get_canvas_height() // 2
+        self.pos = 54, 80
         self.delta = 0, 0
         self.target = None
         self.speed = 200
