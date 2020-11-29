@@ -36,7 +36,7 @@ def enter():
     with open('MapData.json', 'r') as fp:
         data = json.load(fp)
         for d in data:
-            t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'])
+            t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'], d['isFlag'])
             gfw.world.add(gfw.layer.platform, t)
 
 

@@ -219,6 +219,8 @@ class Player:
             self.GaussDelay = 1.0
 
         self.platform_collision()
+        Tile.xOffset = self.xOffset
+        Tile.yOffset = self.yOffset
 
     def fire(self):
         if self.SelectedWeapon == 1 and self.GaussDelay == 1.0:

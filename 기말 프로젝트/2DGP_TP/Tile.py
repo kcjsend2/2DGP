@@ -15,7 +15,7 @@ class Tile:
         self.image = gfw.image.load(gobj.RES_DIR + '/PrtWhite.png')
         self.sPos = sx, sy
         self.CollisionMode = isCollision
-        self.isTile = isFlag
+        self.isFlag = isFlag
 
     def update(self):
         #for p in gfw.world.objects_at(gfw.layer.player):
@@ -29,7 +29,7 @@ class Tile:
     def dictionary(self):
         x, y = self.pos
         sx, sy = self.sPos
-        return {"x": x, "y": y, "sx": sx, "sy": sy, "isCollision": self.CollisionMode}
+        return {"x": x, "y": y, "sx": sx, "sy": sy, "isCollision": self.CollisionMode, "isFlag": self.isFlag}
 
     def remove(self):
         gfw.world.remove(self)
