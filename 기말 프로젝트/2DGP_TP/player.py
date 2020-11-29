@@ -263,14 +263,14 @@ class Player:
                 if self.isUp is True:
                     b = rocket(self.pos[0], self.pos[1] + 50, 2, 0, self.velocity[1])
                 if self.isDown is True and self.isJumping is True:
-                    b = rocket(self.pos[0], self.pos[1] - 50, 3, 0, -self.velocity[1])
+                    b = rocket(self.pos[0], self.pos[1] - 50, 3, 0, -(self.velocity[1] / 2))
 
             elif self.action == 1 or self.action == 3:
                 b = rocket(self.pos[0] + 50, self.pos[1], 1, self.velocity[0], 0)
                 if self.isUp is True:
                     b = rocket(self.pos[0], self.pos[1] + 50, 2, 0, self.velocity[1])
                 if self.isDown is True and self.isJumping is True:
-                    b = rocket(self.pos[0], self.pos[1] - 50, 3, 0, -self.velocity[1])
+                    b = rocket(self.pos[0], self.pos[1] - 50, 3, 0, -(self.velocity[1] / 2))
 
             gfw.world.add(gfw.layer.bullet, b)
 
