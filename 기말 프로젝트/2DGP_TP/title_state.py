@@ -10,11 +10,9 @@ def enter():
 
 
 def update():
-    gfw.world.update()
 
 
 def draw():
-
 
 def handle_event(e):
 

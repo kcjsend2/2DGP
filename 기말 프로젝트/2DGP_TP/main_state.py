@@ -3,6 +3,7 @@ from pico2d import *
 from player import Player
 from background import *
 from Tile import *
+from timer import *
 import gobj
 import time
 
@@ -22,7 +23,7 @@ global font
 
 
 def enter():
-    gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player'])
+    gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player', 'ui'])
 
     global t_max_x
     t_max_x = 0
@@ -51,6 +52,10 @@ def enter():
 
     global font
     font = gfw.font.load(res('ENCR10B.TTF'), 30)
+
+    global timer
+    timer = Timer(canvas_width - 20, canvas_height - 50)
+    gfw.world.add(gfw.layer.ui, timer)
 
 def update():
     gfw.world.update()

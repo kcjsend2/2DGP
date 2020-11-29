@@ -1,34 +1,63 @@
 from pico2d import *
 import gfw
 from gobj import *
+import time
 
 
 class Timer:
-    bullets = []
-    trashcan = []
-
     def __init__(self, right, y):
-        # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
+        self.stime = time.time()
         self.right, self.y = right, y
         self.image = gfw.image.load(RES_DIR + '/number_24x32.png')
         self.digit_width = self.image.w // 10
-        self.reset()
-
-    def reset(self):
-        self.score = 0
-        self.display = 0
+        self.now = 0
 
     def draw(self):
         x = self.right
-        score = self.display
-        while score > 0:
-            digit = score % 10
+        sec = int(self.now)
+        minute = sec // 60
+        sec -= minute * 60
+
+        scnt = 0
+        while sec > 0:
+            digit = sec % 10
             sx = digit * self.digit_width
-            # print(type(sx), type(digit), type(self.digit_width))
             x -= self.digit_width
             self.image.clip_draw(sx, 0, self.digit_width, self.image.h, x, self.y)
-            score //= 10
+            sec //= 10
+            scnt += 1
+
+        if scnt == 0:
+            for i in 0, 1:
+                x -= self.digit_width
+                self.image.clip_draw(0, 0, self.digit_width, self.image.h, x, self.y)
+
+        if 0 < scnt < 2:
+            while scnt > 0:
+                scnt -= 1
+                x -= self.digit_width
+                self.image.clip_draw(0, 0, self.digit_width, self.image.h, x, self.y)
+
+        x -= 10
+        mcnt = 0
+        while minute > 0:
+            digit = minute % 10
+            sx = digit * self.digit_width
+            x -= self.digit_width
+            self.image.clip_draw(sx, 0, self.digit_width, self.image.h, x, self.y)
+            minute //= 10
+            mcnt += 1
+
+        if mcnt == 0:
+            for i in 0, 1:
+                x -= self.digit_width
+                self.image.clip_draw(0, 0, self.digit_width, self.image.h, x, self.y)
+
+        if 0 < mcnt < 2:
+            while mcnt > 0:
+                mcnt -= 1
+                x -= self.digit_width
+                self.image.clip_draw(0, 0, self.digit_width, self.image.h, x, self.y)
 
     def update(self):
-        if self.display < self.score:
-            self.display += 1
+        self.now = time.time() - self.stime
