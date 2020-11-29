@@ -174,6 +174,9 @@ class Player:
         if y + dy > get_canvas_height() / 2 and self.my - get_canvas_height() > self.yOffset:
             self.yOffset += dy * self.speed * gfw.delta_time
             y = get_canvas_height() / 2
+        if y + dy < get_canvas_height() / 2 and self.yOffset > 0:
+            self.yOffset += dy * self.speed * gfw.delta_time
+            y = get_canvas_height() / 2
         else:
             y += dy * self.speed * gfw.delta_time
 

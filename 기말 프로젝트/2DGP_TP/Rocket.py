@@ -113,6 +113,11 @@ class rocket:
             self.remove()
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
+            l -= self.xOffset
+            b -= self.yOffset
+            r -= self.xOffset
+            t -= self.yOffset
+
             if l < self.pos[0] < r and t > self.pos[1] > b:
                 for pl in gfw.world.objects_at(gfw.layer.player):
                     if math.sqrt(pow(pl.pos[0] - self.pos[0], 2) + pow(pl.pos[1] - self.pos[1], 2)) < 200\
