@@ -4,6 +4,7 @@ from player import Player
 from background import *
 from Tile import *
 from timer import *
+import result_state
 import gobj
 import time
 
@@ -21,6 +22,8 @@ global player
 global stime
 global font
 
+global stage
+stage = 1
 
 def enter():
     gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player', 'ui'])
@@ -30,7 +33,7 @@ def enter():
     global t_max_y
     t_max_y = 0
 
-    with open('MapData.json', 'r') as fp:
+    with open("Stage" + str(stage) + ".json", 'r') as fp:
         data = json.load(fp)
         for d in data:
             t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'], d['isFlag'])
@@ -59,7 +62,8 @@ def enter():
 
 def update():
     gfw.world.update()
-
+    if player.get_goal():
+        gfw.push(result_state)
 
 def draw():
     gfw.world.draw()
@@ -77,6 +81,13 @@ def handle_event(e):
 
     player.handle_event(e)
 
+def resume():
+    global stage
+    stage += 1
+    enter()
+
+def pause():
+    pass
 
 def exit():
     pass

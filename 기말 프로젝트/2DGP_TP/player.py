@@ -2,13 +2,12 @@ import random
 from pico2d import *
 import gfw
 import gobj
-import result_state
 from Rocket import *
 from Gauss import *
 from Tile import *
 
-
 class Player:
+
     KEYDOWN_Z = (SDL_KEYDOWN, SDLK_z)
     KEYDOWN_X = (SDL_KEYDOWN, SDLK_x)
     KEYDOWN_LEFT = (SDL_KEYDOWN, SDLK_LEFT)
@@ -29,11 +28,7 @@ class Player:
     image = None
     weaponImage = None
 
-    isUp = False
-    isDown = False
-    isLeft = False
-    isRight = False
-    isFalling = False
+
     gravity = 6
 
     SelectedWeapon = 1
@@ -45,6 +40,13 @@ class Player:
     BB = [-16, -16, 16, 16]
 
     def __init__(self, t_max_x, t_max_y):
+        self.isUp = False
+        self.isDown = False
+        self.isLeft = False
+        self.isRight = False
+        self.isFalling = False
+
+        self.goal = False
         self.GaussDelay = 1.0
         self.pos = 54, 80
         self.delta = 0, 0
@@ -141,18 +143,18 @@ class Player:
         self.image.clip_draw(sx, sy, width, height, *self.pos, 32, 32)
 
     def update(self):
-        if Player.isRight and self.delta[0] < 1.0:
+        if self.isRight and self.delta[0] < 1.0:
             self.delta = gobj.point_add(self.delta, (6 * gfw.delta_time, 0))
 
-        if Player.isLeft and self.delta[0] > -1.0:
+        if self.isLeft and self.delta[0] > -1.0:
             self.delta = gobj.point_add(self.delta, (-6 * gfw.delta_time, 0))
 
-        if not Player.isRight and self.delta[0] > 0:
+        if not self.isRight and self.delta[0] > 0:
             self.delta = gobj.point_add(self.delta, (-6 * gfw.delta_time, 0))
             if self.delta[0] < 0.1:
                 self.delta = (0, self.delta[1])
 
-        if not Player.isLeft and self.delta[0] < 0:
+        if not self.isLeft and self.delta[0] < 0:
             self.delta = gobj.point_add(self.delta, (6 * gfw.delta_time, 0))
             if self.delta[0] > -0.1:
                 self.delta = (0, self.delta[1])
@@ -278,35 +280,35 @@ class Player:
         pair = (e.type, e.key)
         if pair == Player.KEYDOWN_RIGHT:
             self.action = 1
-            Player.isRight = True
-            if Player.isLeft:
-                Player.isLeft = False
+            self.isRight = True
+            if self.isLeft:
+                self.isLeft = False
 
         elif pair == Player.KEYUP_RIGHT:
             if self.action == 1:
                 self.action = 3
-            Player.isRight = False
+            self.isRight = False
 
         elif pair == Player.KEYDOWN_LEFT:
             self.action = 0
-            Player.isLeft = True
-            if Player.isRight:
-                Player.isRight = False
+            self.isLeft = True
+            if self.isRight:
+                self.isRight = False
 
         elif pair == Player.KEYUP_LEFT:
             if self.action == 0:
                 self.action = 2
-            Player.isLeft = 0
+            self.isLeft = 0
 
         elif pair == Player.KEYDOWN_UP:
-            Player.isUp = True
+            self.isUp = True
         elif pair == Player.KEYUP_UP:
-            Player.isUp = False
+            self.isUp = False
 
         elif pair == Player.KEYDOWN_DOWN:
-            Player.isDown = True
+            self.isDown = True
         elif pair == Player.KEYUP_DOWN:
-            Player.isDown = False
+            self.isDown = False
 
         elif pair == Player.KEYDOWN_Z:
             if self.jumpCount > 0:
@@ -340,14 +342,14 @@ class Player:
             t -= self.yOffset
 
             if l < self.pos[0] < r and p.CollisionMode:
-                if p.isFlag:
-                    gfw.change(result_state)
-                else:
-                    if b < pb < t:
-                        if pb > t or pr < l or pl > r:
-                            self.isFalling = True
+                if b < pb < t:
+                    if pb > t or pr < l or pl > r:
+                        self.isFalling = True
 
-                        elif pb < t:
+                    elif pb < t:
+                        if p.isFlag:
+                            self.goal = True
+                        else:
                             self.pos = (self.pos[0], t + 16)
                             self.isFalling = False
                             self.isJumping = False
@@ -382,12 +384,19 @@ class Player:
             t -= self.yOffset
 
             if (b <= pb < t - 8 or b + 8 <= pt < t) and p.CollisionMode:
-                if p.isFlag:
-                    gfw.change(result_state)
-                else:
-                    if r > pr > l:
+
+                if r > pr > l:
+                    if p.isFlag:
+                        self.goal = True
+                    else:
                         self.pos = (l - 16, self.pos[1])
                         self.delta = (0, self.delta[1])
-                    if l < pl < r:
+                if l < pl < r:
+                    if p.isFlag:
+                        self.goal = True
+                    else:
                         self.pos = (r + 16, self.pos[1])
                         self.delta = (0, self.delta[1])
+
+    def get_goal(self):
+        return self.goal

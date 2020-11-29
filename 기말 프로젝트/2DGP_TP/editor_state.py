@@ -33,7 +33,7 @@ rDown = False
 
 def enter():
     gfw.world.init(['platform'])
-    with open('MapData.json', 'r') as fp:
+    with open('Stage1.json', 'r') as fp:
         data = json.load(fp)
         for d in data:
             t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'], d['isFlag'])
@@ -194,7 +194,7 @@ def save_tile():
     tile = gfw.world.objects_at(gfw.layer.platform)
     js_tiles = [t.dictionary() for t in tile]
 
-    with open('MapData.json', 'w') as f:
+    with open('Stage1.json', 'w') as f:
         json.dump(js_tiles, f, indent=2)
     print("File Saved!")
 

@@ -59,5 +59,8 @@ class Timer:
                 x -= self.digit_width
                 self.image.clip_draw(0, 0, self.digit_width, self.image.h, x, self.y)
 
+    def get_time(self):
+        return self.now
+
     def update(self):
         self.now = time.time() - self.stime

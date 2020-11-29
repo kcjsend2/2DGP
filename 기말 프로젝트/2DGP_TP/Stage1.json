@@ -472,22 +472,6 @@
     "isFlag": false
   },
   {
-    "x": 768,
-    "y": 672,
-    "sx": 128,
-    "sy": 160,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 768,
-    "y": 640,
-    "sx": 128,
-    "sy": 128,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
     "x": 32,
     "y": 32,
     "sx": 96,
@@ -2086,5 +2070,21 @@
     "sy": 256,
     "isCollision": true,
     "isFlag": false
+  },
+  {
+    "x": 768,
+    "y": 640,
+    "sx": 160,
+    "sy": 128,
+    "isCollision": true,
+    "isFlag": true
+  },
+  {
+    "x": 768,
+    "y": 672,
+    "sx": 160,
+    "sy": 160,
+    "isCollision": true,
+    "isFlag": true
   }
 ]
