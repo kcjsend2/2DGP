@@ -6,6 +6,7 @@ from Tile import *
 import gobj
 import time
 
+
 canvas_width = 1280
 canvas_height = 960
 
@@ -17,6 +18,8 @@ global t_max_y
 global player
 
 global stime
+global font
+
 
 def enter():
     gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player'])
@@ -46,6 +49,8 @@ def enter():
     global stime
     stime = time.time()
 
+    global font
+    font = gfw.font.load(res('ENCR10B.TTF'), 30)
 
 def update():
     gfw.world.update()
