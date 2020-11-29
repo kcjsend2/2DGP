@@ -180,6 +180,11 @@ class Player:
         else:
             y += dy * self.speed * gfw.delta_time
 
+        if self.xOffset < 0:
+            self.xOffset = 0
+        if self.yOffset < 0:
+            self.yOffset = 0
+
         self.delay_frame -= 1
 
         self.pos = x, y
