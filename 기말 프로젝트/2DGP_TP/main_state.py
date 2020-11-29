@@ -19,7 +19,6 @@ global player
 def enter():
     gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player'])
 
-
     global t_max_x
     t_max_x = 0
     global t_max_y
@@ -41,6 +40,7 @@ def enter():
 
     bg = Background('bkMoon.png', t_max_x, t_max_y)
     gfw.world.add(gfw.layer.bg, bg)
+
 
 def update():
     gfw.world.update()

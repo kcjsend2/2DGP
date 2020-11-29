@@ -21,12 +21,15 @@ VertSelected = 0
 
 global CollisionMode
 CollisionMode = False
+global isFlag
+isFlag = False
 
 global lDown
 lDown = False
 
 global rDown
 rDown = False
+
 
 def enter():
     gfw.world.init(['platform'])
@@ -60,6 +63,7 @@ def handle_event(e):
     global rDown
     global xOffset
     global yOffset
+    global isFlag
 
     if e.type == SDL_QUIT:
         gfw.quit()
@@ -68,8 +72,10 @@ def handle_event(e):
             gfw.pop()
         elif e.key == SDLK_1:
             CollisionMode = True
+            print("Collision: True")
         elif e.key == SDLK_2:
             CollisionMode = False
+            print("Collision: False")
         elif e.key == SDLK_LEFT and horzSelected > 0:
             horzSelected -= 1
         elif e.key == SDLK_RIGHT and horzSelected < 15:
@@ -80,6 +86,13 @@ def handle_event(e):
             VertSelected -= 1
         elif e.key == SDLK_p:
             save_tile()
+        elif e.key == SDLK_f:
+            if isFlag:
+                isFlag = False
+                print("Flag: False")
+            else:
+                isFlag = True
+                print("Flag: True")
 
         elif e.key == SDLK_w:
             yOffset = yOffset + 32
@@ -143,7 +156,7 @@ def set_tile(e):
             isFill = True
 
     if not isFill:
-        t = Tile(mx * 32 + xOffset, my * 32 + yOffset, horzSelected * 32, VertSelected * 32, CollisionMode)
+        t = Tile(mx * 32 + xOffset, my * 32 + yOffset, horzSelected * 32, VertSelected * 32, CollisionMode, isFlag)
         gfw.world.add(gfw.layer.platform, t)
 
 

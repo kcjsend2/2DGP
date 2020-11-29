@@ -7,7 +7,7 @@ class Tile:
     xOffset = 0
     yOffset = 0
 
-    def __init__(self, x, y, sx, sy, isCollision):
+    def __init__(self, x, y, sx, sy, isCollision, isFlag):
         self.width = 32
         self.height = 32
         self.tpos = [x / 32, y / 32]
@@ -15,6 +15,7 @@ class Tile:
         self.image = gfw.image.load(gobj.RES_DIR + '/PrtWhite.png')
         self.sPos = sx, sy
         self.CollisionMode = isCollision
+        self.isTile = isFlag
 
     def update(self):
         #for p in gfw.world.objects_at(gfw.layer.player):

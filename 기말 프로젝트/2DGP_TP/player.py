@@ -2,6 +2,7 @@ import random
 from pico2d import *
 import gfw
 import gobj
+import result_state
 from Rocket import *
 from Gauss import *
 from Tile import *
@@ -337,34 +338,37 @@ class Player:
             t -= self.yOffset
 
             if l < self.pos[0] < r and p.CollisionMode:
-                if b < pb < t:
-                    if pb > t or pr < l or pl > r:
+                if p.isFlag:
+                    gfw.change(result_state)
+                else:
+                    if b < pb < t:
+                        if pb > t or pr < l or pl > r:
+                            self.isFalling = True
+
+                        elif pb < t:
+                            self.pos = (self.pos[0], t + 16)
+                            self.isFalling = False
+                            self.isJumping = False
+
+                            if self.Boots:
+                                self.jumpCount = 2
+                            else:
+                                self.jumpCount = 1
+
+                            if self.delta[1] < 0:
+                                self.delta = (self.delta[0], 0)
+
+                            if self.delta[0] > 1.0:
+                                self.delta = (self.delta[0] - 0.3, self.delta[1])
+
+                            elif self.delta[0] < -1.0:
+                                self.delta = (self.delta[0] + 0.3, self.delta[1])
+                        break
+                    elif b < pt < t:
+                        self.delta = (self.delta[0], -self.delta[1])
+                        break
+                    else:
                         self.isFalling = True
-
-                    elif pb < t:
-                        self.pos = (self.pos[0], t + 16)
-                        self.isFalling = False
-                        self.isJumping = False
-
-                        if self.Boots:
-                            self.jumpCount = 2
-                        else:
-                            self.jumpCount = 1
-
-                        if self.delta[1] < 0:
-                            self.delta = (self.delta[0], 0)
-
-                        if self.delta[0] > 1.0:
-                            self.delta = (self.delta[0] - 0.3, self.delta[1])
-
-                        elif self.delta[0] < -1.0:
-                            self.delta = (self.delta[0] + 0.3, self.delta[1])
-                    break
-                elif b < pt < t:
-                    self.delta = (self.delta[0], -self.delta[1])
-                    break
-            else:
-                self.isFalling = True
 
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
@@ -376,9 +380,12 @@ class Player:
             t -= self.yOffset
 
             if (b <= pb < t - 8 or b + 8 <= pt < t) and p.CollisionMode:
-                if r > pr > l:
-                    self.pos = (l - 16, self.pos[1])
-                    self.delta = (0, self.delta[1])
-                if l < pl < r:
-                    self.pos = (r + 16, self.pos[1])
-                    self.delta = (0, self.delta[1])
+                if p.isFlag:
+                    gfw.change(result_state)
+                else:
+                    if r > pr > l:
+                        self.pos = (l - 16, self.pos[1])
+                        self.delta = (0, self.delta[1])
+                    if l < pl < r:
+                        self.pos = (r + 16, self.pos[1])
+                        self.delta = (0, self.delta[1])
