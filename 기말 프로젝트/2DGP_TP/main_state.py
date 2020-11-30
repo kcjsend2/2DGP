@@ -26,7 +26,7 @@ global stage
 stage = 1
 
 def enter():
-    gfw.world.init(['bg', 'bullet', 'effect', 'platform', 'player', 'ui'])
+    gfw.world.init(['bg', 'effect', 'platform', 'bullet', 'player', 'ui'])
 
     global t_max_x
     t_max_x = 0
@@ -60,6 +60,11 @@ def enter():
     timer = Timer(canvas_width - 20, canvas_height - 50)
     gfw.world.add(gfw.layer.ui, timer)
 
+    global bgm
+    bgm = load_music('sound/bgm_' + str(random.randint(1, 3)) + '.ogg')
+    bgm.set_volume(50)
+    bgm.repeat_play()
+
 def update():
     gfw.world.update()
     if player.get_goal():
@@ -87,10 +92,11 @@ def resume():
     enter()
 
 def pause():
-    pass
+    bgm.stop()
 
 def exit():
-    pass
+    global bgm
+    del bgm
 
 
 if __name__ == '__main__':

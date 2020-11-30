@@ -66,8 +66,11 @@ class Player:
         self.isWalk = False
         self.isFalling = 1
         self.isJumping = False
-        self.action = 2
+        self.action = 1
         self.velocity = 0, 0
+
+        self.walksound_delay = 0.2
+        self.prevwsound = 0
 
         self.xOffset = max(self.pos[0] - get_canvas_width(), 0)
         self.yOffset = max(self.pos[1] - get_canvas_height(), 0)
@@ -148,6 +151,8 @@ class Player:
         self.image.clip_draw(sx, sy, width, height, *self.pos, 32, 32)
 
     def update(self):
+        self.prevwsound += gfw.delta_time
+
         if self.isRight and self.delta[0] < 1.0:
             self.delta = gobj.point_add(self.delta, (6 * gfw.delta_time, 0))
 
@@ -213,6 +218,9 @@ class Player:
             if self.isJumping:
                 if self.fidx == 0 or self.fidx == 2:
                     self.fidx = 1
+            if self.prevwsound > self.walksound_delay and not (self.isJumping or self.isFalling):
+                self.walkfx.play()
+                self.prevwsound = 0
 
         else:
             self.fidx = 0
@@ -370,7 +378,7 @@ class Player:
                         elif self.delta[0] < -1.0:
                             self.delta = (self.delta[0] + 0.3, self.delta[1])
                     break
-                elif t > pt + self.delta[1] > b > pt:
+                elif t > pt + self.delta[1] > b:
                     self.delta = (self.delta[0], -self.delta[1])
                     self.bonkheadfx.play(1)
                     break

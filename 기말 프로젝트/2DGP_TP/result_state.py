@@ -30,6 +30,11 @@ def enter():
     global display
     display = 0
 
+    global fanfare
+    fanfare = load_music('sound/fanfale' + str(random.randint(1, 3)) + '_intro.ogg')
+    fanfare.set_volume(32)
+    fanfare.play(1)
+
     global image
     image = gfw.image.load(gobj.RES_DIR + '/WhiteSpace.png')
 
@@ -60,7 +65,7 @@ def draw():
     if display < now:
         display += 1
 
-    if ntime > 2:
+    if ntime > 1.5:
         minute = now // 60
         sec = now - minute * 60
 
@@ -73,6 +78,9 @@ def draw():
 
 
 def handle_event(e):
+    if e.type == SDL_QUIT:
+        gfw.quit()
+
     global ntime
     if int(ntime) > 2.5 and e.type == SDL_KEYDOWN:
         for i in range(5):
@@ -84,4 +92,5 @@ def handle_event(e):
 
 
 def exit():
-    pass
+    global fanfare
+    del fanfare

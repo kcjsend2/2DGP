@@ -37,7 +37,14 @@ class tail:
     def remove(self):
         gfw.world.remove(self)
 
+def play_hit():
+    global hitsound
+    hitsound = load_wav('sound/missile_hit.wav')
+    hitsound.set_volume(64)
+    hitsound.play()
+
 class rocket:
+
     LRBB = [-16, -8, 16, 8]
     UDBB = [-8, -16, 8, 16]
 
@@ -120,13 +127,14 @@ class rocket:
 
             if l < self.pos[0] < r and t > self.pos[1] > b:
                 for pl in gfw.world.objects_at(gfw.layer.player):
-                    if math.sqrt(pow(pl.pos[0] - self.pos[0], 2) + pow(pl.pos[1] - self.pos[1], 2)) < 200\
+                    if math.sqrt(pow(pl.pos[0] - self.pos[0], 2) + pow(pl.pos[1] - self.pos[1], 2)) < 100\
                             and self.pos[1] < pl.pos[1] - 10:
                         pl.delta = pl.delta[0], 3
 
                 self.remove()
 
     def remove(self):
+        play_hit()
         gfw.world.remove(self)
 
     def get_bb(self):
