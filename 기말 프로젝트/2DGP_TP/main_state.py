@@ -40,6 +40,11 @@ def enter():
     global t_max_y
     t_max_y = 0
 
+    global isPaused
+    isPaused = False
+    global stage
+    stage = 1
+
     with open("Stage" + str(stage) + ".json", 'r') as fp:
         data = json.load(fp)
         for d in data:
@@ -63,7 +68,6 @@ def enter():
     global font
     font = gfw.font.load(res('ENCR10B.TTF'), 30)
 
-    global timer
     timer = Timer(canvas_width - 20, canvas_height - 50)
     gfw.world.add(gfw.layer.ui, timer)
 
@@ -88,6 +92,23 @@ def draw():
         whitesp = gfw.load_image(gobj.RES_DIR + '/WhiteSpace.png')
         whitesp.draw(get_canvas_width() // 2, get_canvas_height() // 2 - 100, 400, 200)
 
+        global pauseMenu
+        global font
+        pointer = ''
+        if pauseMenu == 0:
+            pointer = '->'
+        font.draw(get_canvas_width() // 2 - 100, get_canvas_height() // 2 - 60, pointer + 'CONTINUE')
+
+        pointer = ''
+        if pauseMenu == 1:
+            pointer = '->'
+        font.draw(get_canvas_width() // 2 - 100, get_canvas_height() // 2 - 90, pointer + 'SAVE')
+
+        pointer = ''
+        if pauseMenu == 2:
+            pointer = '->'
+        font.draw(get_canvas_width() // 2 - 100, get_canvas_height() // 2 - 120, pointer + 'EXIT')
+
 
 def handle_event(e):
     global player
@@ -105,7 +126,7 @@ def handle_event(e):
         player.handle_event(e)
     else:
         if e.type == SDL_KEYDOWN:
-            if e.key == SDLK_DOWN and pauseMenu < 3:
+            if e.key == SDLK_DOWN and pauseMenu < 2:
                 pauseMenu += 1
             elif e.key == SDLK_UP and pauseMenu > 0:
                 pauseMenu -= 1
@@ -115,7 +136,7 @@ def handle_event(e):
                 elif pauseMenu == 1:
                     save_pickle()
                 elif pauseMenu == 2:
-                    gfw.quit()
+                    gfw.pop()
 
 
 def resume():

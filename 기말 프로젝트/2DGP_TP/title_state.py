@@ -95,7 +95,7 @@ def handle_event(e):
             menu_select -= 1
         if e.key == SDLK_RETURN:
             if menu_select == 0:
-                gfw.change(main_state)
+                gfw.push(main_state)
             elif menu_select == 1:
                 pass
             elif menu_select == 2:
@@ -109,6 +109,12 @@ def exit():
     del intro
     del loop
 
+
+def pause():
+    pass
+
+def resume():
+    enter()
 
 if __name__ == '__main__':
     gfw.run_main()
