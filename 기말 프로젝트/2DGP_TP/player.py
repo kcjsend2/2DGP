@@ -394,7 +394,7 @@ class Player:
             r -= self.xOffset
             t -= self.yOffset
 
-            if (b <= pb < t or b < pt <= t) and p.CollisionMode:
+            if (b <= pb < t - 8 or b < pt <= t) and p.CollisionMode:
                 if r > pr + self.delta[0] > l:
                     if p.isFlag:
                         self.goal = True
