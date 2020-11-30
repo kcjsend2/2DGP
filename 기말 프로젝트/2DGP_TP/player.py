@@ -40,6 +40,11 @@ class Player:
     BB = [-16, -16, 16, 16]
 
     def __init__(self, t_max_x, t_max_y):
+
+        self.jumpfx = load_wav('sound/jump.wav')
+        self.walkfx = load_wav('sound/walk.wav')
+        self.bonkheadfx = load_wav('sound/bonkhead.wav')
+
         self.isUp = False
         self.isDown = False
         self.isLeft = False
@@ -312,6 +317,7 @@ class Player:
 
         elif pair == Player.KEYDOWN_Z:
             if self.jumpCount > 0:
+                self.jumpfx.play(1)
                 self.jumpCount -= 1
                 self.isJumping = True
                 self.isFalling = True
@@ -366,6 +372,7 @@ class Player:
                     break
                 elif t > pt + self.delta[1] > b > pt:
                     self.delta = (self.delta[0], -self.delta[1])
+                    self.bonkheadfx.play(1)
                     break
                 else:
                     self.isFalling = True
