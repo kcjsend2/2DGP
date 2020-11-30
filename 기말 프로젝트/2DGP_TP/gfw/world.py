@@ -4,6 +4,7 @@ from pico2d import *
 
 objects = []
 trashcan = []
+cleartime = {}
 
 
 def init(layer_names):
@@ -19,6 +20,10 @@ def init(layer_names):
 
 def add(layer_index, obj):
     objects[layer_index].append(obj)
+
+
+def cleartime_add(stage, time):
+    cleartime["stage " + str(stage)] = time
 
 
 def remove(obj):

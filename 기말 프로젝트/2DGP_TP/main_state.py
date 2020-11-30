@@ -32,6 +32,8 @@ isPaused = False
 global pauseMenu
 pauseMenu = 0
 
+global timer
+
 def enter():
     gfw.world.init(['bg', 'effect', 'platform', 'bullet', 'player', 'ui'])
 
@@ -68,6 +70,7 @@ def enter():
     global font
     font = gfw.font.load(res('ENCR10B.TTF'), 30)
 
+    global timer
     timer = Timer(canvas_width - 20, canvas_height - 50)
     gfw.world.add(gfw.layer.ui, timer)
 
@@ -78,11 +81,14 @@ def enter():
 
 def update():
     global isPaused
+    global stage
+    global timer
     if isPaused:
         return
 
     gfw.world.update()
     if player.get_goal():
+        gfw.world.cleartime_add(stage, timer.get_time())
         gfw.push(result_state)
 
 def draw():
@@ -166,8 +172,10 @@ def pause_state():
 
 
 def save_pickle():
+    global stage
     with open('save.pickle', 'wb') as f:
-        pickle.dump(player, f)
+        data = {"stage": stage, "cleartime": gfw.world.cleartime}
+
 
 def exit():
     global bgm
