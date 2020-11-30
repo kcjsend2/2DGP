@@ -341,38 +341,34 @@ class Player:
             r -= self.xOffset
             t -= self.yOffset
 
-            if l < self.pos[0] < r and p.CollisionMode:
-                if b < pb < t:
-                    if pb > t or pr < l or pl > r:
-                        self.isFalling = True
-
-                    elif pb < t:
-                        if p.isFlag:
-                            self.goal = True
-                        else:
-                            self.pos = (self.pos[0], t + 16)
-                            self.isFalling = False
-                            self.isJumping = False
-
-                            if self.Boots:
-                                self.jumpCount = 2
-                            else:
-                                self.jumpCount = 1
-
-                            if self.delta[1] < 0:
-                                self.delta = (self.delta[0], 0)
-
-                            if self.delta[0] > 1.0:
-                                self.delta = (self.delta[0] - 0.3, self.delta[1])
-
-                            elif self.delta[0] < -1.0:
-                                self.delta = (self.delta[0] + 0.3, self.delta[1])
-                        break
-                    elif b < pt < t:
-                        self.delta = (self.delta[0], -self.delta[1])
-                        break
+            if l - 10 < self.pos[0] < r + 10 and p.CollisionMode:
+                if b < pb + self.delta[1] < t:
+                    if p.isFlag:
+                        self.goal = True
                     else:
-                        self.isFalling = True
+                        self.pos = (self.pos[0], t + 16)
+                        self.isFalling = False
+                        self.isJumping = False
+
+                        if self.Boots:
+                            self.jumpCount = 2
+                        else:
+                            self.jumpCount = 1
+
+                        if self.delta[1] < 0:
+                            self.delta = (self.delta[0], 0)
+
+                        if self.delta[0] > 1.0:
+                            self.delta = (self.delta[0] - 0.3, self.delta[1])
+
+                        elif self.delta[0] < -1.0:
+                            self.delta = (self.delta[0] + 0.3, self.delta[1])
+                    break
+                elif b < pt + self.delta[1] < t:
+                    self.delta = (self.delta[0], -self.delta[1])
+                    break
+                else:
+                    self.isFalling = True
 
         for p in gfw.world.objects_at(gfw.layer.platform):
             l, b, r, t = p.get_bb()
@@ -383,15 +379,14 @@ class Player:
             r -= self.xOffset
             t -= self.yOffset
 
-            if (b <= pb < t - 8 or b + 8 <= pt < t) and p.CollisionMode:
-
-                if r > pr > l:
+            if (b <= pb < t or b < pt <= t) and p.CollisionMode:
+                if r > pr + self.delta[0] > l:
                     if p.isFlag:
                         self.goal = True
                     else:
                         self.pos = (l - 16, self.pos[1])
                         self.delta = (0, self.delta[1])
-                if l < pl < r:
+                if l < pl + self.delta[0] < r:
                     if p.isFlag:
                         self.goal = True
                     else:
