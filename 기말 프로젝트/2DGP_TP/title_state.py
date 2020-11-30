@@ -4,6 +4,7 @@ import gfw
 import gobj
 import time
 import main_state
+import pickle
 
 canvas_width = 1280
 canvas_height = 960
@@ -40,6 +41,7 @@ def enter():
     global loop
     loop = load_music('sound/curly_loop.ogg')
     loop.set_volume(50)
+
     global isloop
     isloop = False
 
@@ -83,6 +85,14 @@ def draw():
     font.draw(get_canvas_width() // 2 - 100, get_canvas_height() // 2 - 120, pointer + 'EXIT')
 
 
+
+def load_pickle():
+    with open('save.pickle', 'rb') as f:
+        data = pickle.load(f)
+        main_state.stage = data["stage"]
+        gfw.world.cleartime = data["cleartime"]
+
+
 def handle_event(e):
     global menu_select
 
@@ -95,9 +105,12 @@ def handle_event(e):
             menu_select -= 1
         if e.key == SDLK_RETURN:
             if menu_select == 0:
+                gfw.world.cleartime.clear()
+                main_state.stage = 1
                 gfw.push(main_state)
             elif menu_select == 1:
-                pass
+                load_pickle()
+                gfw.push(main_state)
             elif menu_select == 2:
                 gfw.quit()
 

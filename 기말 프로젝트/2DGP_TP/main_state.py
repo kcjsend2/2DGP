@@ -44,9 +44,8 @@ def enter():
 
     global isPaused
     isPaused = False
-    global stage
-    stage = 1
 
+    global stage
     with open("Stage" + str(stage) + ".json", 'r') as fp:
         data = json.load(fp)
         for d in data:
@@ -175,7 +174,7 @@ def save_pickle():
     global stage
     with open('save.pickle', 'wb') as f:
         data = {"stage": stage, "cleartime": gfw.world.cleartime}
-
+        pickle.dump(data, f)
 
 def exit():
     global bgm
