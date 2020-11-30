@@ -142,7 +142,7 @@ def set_tile(e):
 
     for i in range(40):
         for j in range(30):
-            if i * 32 < e.x < (i + 1) * 32 and j * 32 < p2y < (j + 1) * 32:
+            if i * 32 <= e.x < (i + 1) * 32 and j * 32 <= p2y < (j + 1) * 32:
                 mx = i
                 my = j
                 ibreak = True
