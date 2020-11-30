@@ -364,7 +364,7 @@ class Player:
                         elif self.delta[0] < -1.0:
                             self.delta = (self.delta[0] + 0.3, self.delta[1])
                     break
-                elif b < pt + self.delta[1] < t:
+                elif t > pt + self.delta[1] > b > pt:
                     self.delta = (self.delta[0], -self.delta[1])
                     break
                 else:

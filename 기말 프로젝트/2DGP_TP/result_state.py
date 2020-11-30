@@ -64,7 +64,7 @@ def draw():
         minute = now // 60
         sec = now - minute * 60
 
-        font.draw(get_canvas_width() // 2 - 155, get_canvas_height() // 2 - 30,
+        font.draw(get_canvas_width() // 2 - 155, get_canvas_height() // 2 - 20,
                   "Clear time: " + str(int(minute)).zfill(2) + ":" + str(int(sec)).zfill(2))
 
     if ntime > 2.5:
@@ -74,7 +74,7 @@ def draw():
 
 def handle_event(e):
     global ntime
-    if int(ntime) > 2.5:
+    if int(ntime) > 2.5 and e.type == SDL_KEYDOWN:
         for i in range(5):
             gfw.world.clear_at(i)
         gfw.pop()
