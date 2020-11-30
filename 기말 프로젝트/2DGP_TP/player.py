@@ -75,8 +75,8 @@ class Player:
         self.xOffset = max(self.pos[0] - get_canvas_width(), 0)
         self.yOffset = max(self.pos[1] - get_canvas_height(), 0)
 
-        self.mx = t_max_x + 32
-        self.my = t_max_y + 32
+        self.mx = t_max_x
+        self.my = t_max_y
 
     def draw(self):
         width, height = 32, 32

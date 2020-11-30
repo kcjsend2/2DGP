@@ -7,6 +7,7 @@ from timer import *
 import result_state
 import gobj
 import time
+import pickle
 
 
 canvas_width = 1280
@@ -24,6 +25,12 @@ global font
 
 global stage
 stage = 1
+
+global isPaused
+isPaused = False
+
+global pauseMenu
+pauseMenu = 0
 
 def enter():
     gfw.world.init(['bg', 'effect', 'platform', 'bullet', 'player', 'ui'])
@@ -66,33 +73,80 @@ def enter():
     bgm.repeat_play()
 
 def update():
+    global isPaused
+    if isPaused:
+        return
+
     gfw.world.update()
     if player.get_goal():
         gfw.push(result_state)
 
 def draw():
     gfw.world.draw()
+    if isPaused:
+        global whitesp
+        whitesp = gfw.load_image(gobj.RES_DIR + '/WhiteSpace.png')
+        whitesp.draw(get_canvas_width() // 2, get_canvas_height() // 2 - 100, 400, 200)
 
 
 def handle_event(e):
     global player
     global TileSetMode
+    global isPaused
+    global pauseMenu
 
     if e.type == SDL_QUIT:
         gfw.quit()
     elif e.type == SDL_KEYDOWN:
         if e.key == SDLK_ESCAPE:
-            gfw.pop()
+            pause_state()
 
-    player.handle_event(e)
+    if not isPaused:
+        player.handle_event(e)
+    else:
+        if e.type == SDL_KEYDOWN:
+            if e.key == SDLK_DOWN and pauseMenu < 3:
+                pauseMenu += 1
+            elif e.key == SDLK_UP and pauseMenu > 0:
+                pauseMenu -= 1
+            elif e.key == SDLK_RETURN:
+                if pauseMenu == 0:
+                    isPaused = False
+                elif pauseMenu == 1:
+                    save_pickle()
+                elif pauseMenu == 2:
+                    gfw.quit()
+
 
 def resume():
     global stage
     stage += 1
     enter()
 
+
 def pause():
-    bgm.stop()
+    pass
+
+
+def pause_state():
+    global isPaused
+    if isPaused:
+        isPaused = False
+        for u in gfw.world.objects_at(gfw.layer.ui):
+            if hasattr(u, 'isPaused'):
+                u.isPaused = False
+                u.stime += time.time() - u.paused
+    else:
+        isPaused = True
+        for u in gfw.world.objects_at(gfw.layer.ui):
+            if hasattr(u, 'isPaused'):
+                u.isPaused = True
+                u.paused = time.time()
+
+
+def save_pickle():
+    with open('save.pickle', 'wb') as f:
+        pickle.dump(player, f)
 
 def exit():
     global bgm

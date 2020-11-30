@@ -6,11 +6,13 @@ import time
 
 class Timer:
     def __init__(self, right, y):
+        self.paused = 0
         self.stime = time.time()
         self.right, self.y = right, y
         self.image = gfw.image.load(RES_DIR + '/number_24x32.png')
         self.digit_width = self.image.w // 10
         self.now = 0
+        self.isPaused = False
 
     def draw(self):
         x = self.right
@@ -63,4 +65,7 @@ class Timer:
         return self.now
 
     def update(self):
-        self.now = time.time() - self.stime
+        if self.isPaused:
+            return
+        else:
+            self.now = time.time() - self.stime
