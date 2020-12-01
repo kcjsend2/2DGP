@@ -6,6 +6,7 @@ from Tile import *
 from item import *
 from timer import *
 import result_state
+import ending_state
 import gobj
 import time
 import pickle
@@ -92,9 +93,12 @@ def update():
         return
 
     gfw.world.update()
-    if player.get_goal():
+    if player.get_goal() and stage < 12:
         gfw.world.cleartime_add(stage, timer.get_time())
         gfw.push(result_state)
+    elif player.get_goal() and stage == 12:
+        gfw.world.cleartime_add(stage, timer.get_time())
+        gfw.change(ending_state)
 
 def draw():
     gfw.world.draw()

@@ -118,6 +118,8 @@ def handle_event(e):
             if menu_select == 0:
                 gfw.world.cleartime.clear()
                 main_state.stage = 1
+                player.Player.GaussGun = False
+                player.Player.Rocketlauncher = False
                 gfw.push(main_state)
             elif menu_select == 1:
                 load_pickle()
