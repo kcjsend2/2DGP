@@ -18,9 +18,6 @@ class Tile:
         self.isFlag = isFlag
 
     def update(self):
-        #for p in gfw.world.objects_at(gfw.layer.player):
-            #Tile.xOffset = p.xOffset
-            #Tile.yOffset = p.yOffset
         pass
 
     def draw(self):

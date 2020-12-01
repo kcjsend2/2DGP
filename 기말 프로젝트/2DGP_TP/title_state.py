@@ -5,6 +5,7 @@ import gobj
 import time
 import main_state
 import pickle
+import player
 
 canvas_width = 1280
 canvas_height = 960
@@ -91,6 +92,16 @@ def load_pickle():
         data = pickle.load(f)
         main_state.stage = data["stage"]
         gfw.world.cleartime = data["cleartime"]
+
+    if data["stage"] < 4:
+        player.Player.GaussGun = False
+        player.Player.Rocketlauncher = False
+    if data["stage"] > 4:
+        player.Player.GaussGun = False
+        player.Player.Rocketlauncher = True
+    if data["stage"] > 7:
+        player.Player.GaussGun = True
+        player.Player.Rocketlauncher = True
 
 
 def handle_event(e):

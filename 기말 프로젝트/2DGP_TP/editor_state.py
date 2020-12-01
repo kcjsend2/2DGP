@@ -4,6 +4,7 @@ import gfw
 import json
 import gobj
 from Tile import *
+from item import *
 
 canvas_width = 1280
 canvas_height = 960
@@ -21,8 +22,14 @@ VertSelected = 0
 
 global CollisionMode
 CollisionMode = False
+
 global isFlag
 isFlag = False
+
+global isItem
+isItem = False
+global ItemType
+ItemType = 0
 
 global lDown
 lDown = False
@@ -30,14 +37,24 @@ lDown = False
 global rDown
 rDown = False
 
+global map
+map = 'map_data/Stage7.json'
+global item_map
+item_map = 'map_data/Stage7_item.json'
 
 def enter():
-    gfw.world.init(['platform'])
-    with open('Stage1.json', 'r') as fp:
+    global map
+    gfw.world.init(['item', 'platform'])
+    with open(map, 'r') as fp:
         data = json.load(fp)
         for d in data:
             t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'], d['isFlag'])
             gfw.world.add(gfw.layer.platform, t)
+    with open(item_map, 'r') as fp:
+        data = json.load(fp)
+        for d in data:
+            i = item(d['x'], d['y'], d['type'])
+            gfw.world.add(gfw.layer.item, i)
 
 
 def update():
@@ -54,6 +71,11 @@ def draw():
     image.clip_draw_to_origin(horzSelected * 32, VertSelected * 32, 32, 32, 0, canvas_height - 64, 64, 64)
     gobj.draw_collision_box(xOffset, yOffset)
 
+    wimage = gfw.image.load(gobj.RES_DIR + '/Arms.png')
+    for i in gfw.world.objects_at(gfw.layer.item):
+        wimage.clip_draw_to_origin(i.type * 36, 0, 36, 13, i.pos[0] - xOffset, i.pos[1] - yOffset)
+
+
 
 def handle_event(e):
     global CollisionMode
@@ -64,6 +86,8 @@ def handle_event(e):
     global xOffset
     global yOffset
     global isFlag
+    global isItem
+    global ItemType
 
     if e.type == SDL_QUIT:
         gfw.quit()
@@ -94,6 +118,14 @@ def handle_event(e):
                 isFlag = True
                 print("Flag: True")
 
+        elif e.key == SDLK_i:
+            if isItem:
+                isItem = False
+                print("Item: False")
+            else:
+                isItem = True
+                print("Item: True")
+
         elif e.key == SDLK_w:
             yOffset = yOffset + 32
         elif e.key == SDLK_a:
@@ -105,13 +137,26 @@ def handle_event(e):
         elif e.key == SDLK_d:
             xOffset = xOffset + 32
 
+        elif e.key == SDLK_n:
+            ItemType = 0
+            print("ItemType: Gauss")
+        elif e.key == SDLK_m:
+            ItemType = 1
+            print("ItemType: RocketLauncher")
+
     elif e.type == SDL_MOUSEBUTTONDOWN:
         if e.button == SDL_BUTTON_LEFT:
             lDown = True
-            set_tile(e)
+            if not isItem:
+                set_tile(e)
+            else:
+                set_item(e)
         if e.button == SDL_BUTTON_RIGHT:
             rDown = True
-            del_tile(e)
+            if not isItem:
+                del_tile(e)
+            else:
+                del_item(e)
 
     elif e.type == SDL_MOUSEBUTTONUP:
         if e.button == SDL_BUTTON_LEFT:
@@ -120,9 +165,9 @@ def handle_event(e):
             rDown = False
 
     elif e.type == SDL_MOUSEMOTION:
-        if lDown:
+        if lDown and not isItem:
             set_tile(e)
-        elif rDown:
+        elif rDown and not isItem:
             del_tile(e)
 
 
@@ -159,6 +204,16 @@ def set_tile(e):
         t = Tile(mx * 32 + xOffset, my * 32 + yOffset, horzSelected * 32, VertSelected * 32, CollisionMode, isFlag)
         gfw.world.add(gfw.layer.platform, t)
 
+def set_item(e):
+    global xOffset
+    global yOffset
+    global ItemType
+
+    p2y = get_canvas_height() - e.y
+
+    t = item(e.x + xOffset, p2y + yOffset, ItemType)
+    gfw.world.add(gfw.layer.item, t)
+
 
 def del_tile(e):
     global xOffset
@@ -172,7 +227,7 @@ def del_tile(e):
 
     for i in range(40):
         for j in range(30):
-            if i * 32 < e.x < (i + 1) * 32 and j * 32 < p2y < (j + 1) * 32:
+            if i * 32 <= e.x < (i + 1) * 32 and j * 32 <= p2y < (j + 1) * 32:
                 mx = i
                 my = j
                 ibreak = True
@@ -190,12 +245,35 @@ def del_tile(e):
     if isFill:
         target.remove()
 
+def del_item(e):
+    global xOffset
+    global yOffset
+
+    p2y = get_canvas_height() - e.y
+
+    target = None
+    for i in gfw.world.objects_at(gfw.layer.item):
+        if i.pos[0] - 18 <= e.x < i.pos[0] + 18 and i.pos[1] - 7 <= p2y < i.pos[1] + 7:
+            target = i
+
+    if target is not None:
+        target.remove()
+
 def save_tile():
+    global map
     tile = gfw.world.objects_at(gfw.layer.platform)
     js_tiles = [t.dictionary() for t in tile]
 
-    with open('Stage1.json', 'w') as f:
+    with open(map, 'w') as f:
         json.dump(js_tiles, f, indent=2)
+
+    global item_map
+    item = gfw.world.objects_at(gfw.layer.item)
+    js_items = [i.dictionary() for i in item]
+
+    with open(item_map, 'w') as f:
+        json.dump(js_items, f, indent=2)
+
     print("File Saved!")
 
 

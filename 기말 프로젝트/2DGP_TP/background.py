@@ -20,7 +20,7 @@ class Background:
             xOffset = pl.xOffset
             yOffset = pl.yOffset
         dx, dy = x - px - xOffset, y - py - yOffset
-        self.image.draw_to_origin(x + dx * 0.05, y + dy * 0.05, self.cw, self.ch)
+        self.image.draw_to_origin(x + dx * 0.02, y + dy * 0.02, self.cw, self.ch)
 
     def update(self):
         pass

@@ -31,11 +31,11 @@ class Player:
 
     gravity = 6
 
-    SelectedWeapon = 1
+    SelectedWeapon = 0
 
     Boots = True
     Rocketlauncher = True
-    GaussGun = True
+    GaussGun = False
 
     BB = [-16, -16, 16, 16]
 
@@ -44,6 +44,8 @@ class Player:
         self.jumpfx = load_wav('sound/jump.wav')
         self.walkfx = load_wav('sound/walk.wav')
         self.bonkheadfx = load_wav('sound/bonkhead.wav')
+        self.gaussfx = load_wav('sound/Gauss.wav')
+        self.gaussfx.set_volume(64)
 
         self.isUp = False
         self.isDown = False
@@ -233,12 +235,13 @@ class Player:
         else:
             self.GaussDelay = 1.0
 
-        self.platform_collision()
+        self.collision()
         Tile.xOffset = self.xOffset
         Tile.yOffset = self.yOffset
 
     def fire(self):
         if self.SelectedWeapon == 1 and self.GaussDelay == 1.0:
+            self.gaussfx.play()
             self.GaussDelay = 0
             if self.action == 0 or self.action == 2:
                 g = Gauss(self.pos[0] - 50, self.pos[1], 0)
@@ -345,68 +348,94 @@ class Player:
         x, y = self.pos
         return x + l, y + b, x + r, y + t
 
-    def platform_collision(self):
-        for p in gfw.world.objects_at(gfw.layer.platform):
-            l, b, r, t = p.get_bb()
-            pl, pb, pr, pt = self.get_bb()
+    def collision(self):
+        for layer in gfw.layer.item, gfw.layer.platform:
+            for p in gfw.world.objects_at(layer):
+                l, b, r, t = p.get_bb()
+                pl, pb, pr, pt = self.get_bb()
 
-            l -= self.xOffset
-            b -= self.yOffset
-            r -= self.xOffset
-            t -= self.yOffset
+                l -= self.xOffset
+                b -= self.yOffset
+                r -= self.xOffset
+                t -= self.yOffset
 
-            if l - 10 < self.pos[0] < r + 10 and p.CollisionMode:
-                if b < pb + self.delta[1] < t:
-                    if p.isFlag:
-                        self.goal = True
-                    else:
-                        self.pos = (self.pos[0], t + 16)
-                        self.isFalling = False
-                        self.isJumping = False
-
-                        if self.Boots:
-                            self.jumpCount = 2
+                if l - 10 < self.pos[0] < r + 10 and p.CollisionMode:
+                    if b < pb + self.delta[1] < t:
+                        if p.isFlag:
+                            self.goal = True
                         else:
-                            self.jumpCount = 1
+                            if layer == gfw.layer.item:
+                                self.get_weapon(p.type)
+                                p.remove()
+                            else:
+                                self.pos = (self.pos[0], t + 16)
+                                self.isFalling = False
+                                self.isJumping = False
 
-                        if self.delta[1] < 0:
-                            self.delta = (self.delta[0], 0)
+                                if self.Boots:
+                                    self.jumpCount = 2
+                                else:
+                                    self.jumpCount = 1
 
-                        if self.delta[0] > 1.0:
-                            self.delta = (self.delta[0] - 0.3, self.delta[1])
+                                if self.delta[1] < 0:
+                                    self.delta = (self.delta[0], 0)
 
-                        elif self.delta[0] < -1.0:
-                            self.delta = (self.delta[0] + 0.3, self.delta[1])
-                    break
-                elif t > pt + self.delta[1] > b:
-                    self.delta = (self.delta[0], -self.delta[1])
-                    self.bonkheadfx.play(1)
-                    break
-                else:
-                    self.isFalling = True
+                                if self.delta[0] > 1.0:
+                                    self.delta = (self.delta[0] - 0.3, self.delta[1])
 
-        for p in gfw.world.objects_at(gfw.layer.platform):
-            l, b, r, t = p.get_bb()
-            pl, pb, pr, pt = self.get_bb()
-
-            l -= self.xOffset
-            b -= self.yOffset
-            r -= self.xOffset
-            t -= self.yOffset
-
-            if (b <= pb < t - 8 or b < pt <= t) and p.CollisionMode:
-                if r > pr + self.delta[0] > l:
-                    if p.isFlag:
-                        self.goal = True
+                                elif self.delta[0] < -1.0:
+                                    self.delta = (self.delta[0] + 0.3, self.delta[1])
+                            break
+                    elif t > pt + self.delta[1] > b:
+                        if layer == gfw.layer.item:
+                            self.get_weapon(p.type)
+                            p.remove()
+                        else:
+                            self.delta = (self.delta[0], -self.delta[1])
+                            self.bonkheadfx.play(1)
+                            break
                     else:
-                        self.pos = (l - 16, self.pos[1])
-                        self.delta = (0, self.delta[1])
-                if l < pl + self.delta[0] < r:
-                    if p.isFlag:
-                        self.goal = True
-                    else:
-                        self.pos = (r + 16, self.pos[1])
-                        self.delta = (0, self.delta[1])
+                        self.isFalling = True
+
+            for p in gfw.world.objects_at(layer):
+                l, b, r, t = p.get_bb()
+                pl, pb, pr, pt = self.get_bb()
+
+                l -= self.xOffset
+                b -= self.yOffset
+                r -= self.xOffset
+                t -= self.yOffset
+
+                if (b <= pb < t - 8 or b < pt <= t) and p.CollisionMode:
+                    if r > pr + self.delta[0] > l:
+                        if p.isFlag:
+                            self.goal = True
+                        else:
+                            if layer == gfw.layer.item:
+                                self.get_weapon(p.type)
+                                p.remove()
+                            else:
+                                self.pos = (l - 16, self.pos[1])
+                                self.delta = (0, self.delta[1])
+                    if l < pl + self.delta[0] < r:
+                        if p.isFlag:
+                            self.goal = True
+                        else:
+                            if layer == gfw.layer.item:
+                                self.get_weapon(p.type)
+                                p.remove()
+                            else:
+                                self.pos = (r + 16, self.pos[1])
+                                self.delta = (0, self.delta[1])
 
     def get_goal(self):
         return self.goal
+
+    def get_weapon(self, type):
+        if type == 0:
+            Player.GaussGun = True
+            self.SelectedWeapon = 1
+        elif type == 1:
+            Player.Rocketlauncher = True
+            self.SelectedWeapon = 2
+

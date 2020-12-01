@@ -3,6 +3,7 @@ from pico2d import *
 from player import Player
 from background import *
 from Tile import *
+from item import *
 from timer import *
 import result_state
 import gobj
@@ -24,7 +25,7 @@ global stime
 global font
 
 global stage
-stage = 1
+stage = 7
 
 global isPaused
 isPaused = False
@@ -35,7 +36,7 @@ pauseMenu = 0
 global timer
 
 def enter():
-    gfw.world.init(['bg', 'effect', 'platform', 'bullet', 'player', 'ui'])
+    gfw.world.init(['bg', 'effect', 'platform', 'item', 'bullet', 'player', 'ui'])
 
     global t_max_x
     t_max_x = 0
@@ -46,7 +47,7 @@ def enter():
     isPaused = False
 
     global stage
-    with open("Stage" + str(stage) + ".json", 'r') as fp:
+    with open("map_data/Stage" + str(stage) + ".json", 'r') as fp:
         data = json.load(fp)
         for d in data:
             t = Tile(d['x'], d['y'], d['sx'], d['sy'], d['isCollision'], d['isFlag'])
@@ -55,6 +56,11 @@ def enter():
                 t_max_x = t.pos[0]
             if t.pos[1] > t_max_y:
                 t_max_y = t.pos[1]
+    with open("map_data/Stage" + str(stage) + "_item.json", 'r') as fp:
+        data = json.load(fp)
+        for d in data:
+            i = item(d['x'], d['y'], d['type'])
+            gfw.world.add(gfw.layer.item, i)
 
     global player
     player = Player(t_max_x, t_max_y)
@@ -146,8 +152,11 @@ def handle_event(e):
 
 def resume():
     global stage
-    stage += 1
-    enter()
+    if stage < 12:
+        stage += 1
+        enter()
+    else:
+        pass
 
 
 def pause():
