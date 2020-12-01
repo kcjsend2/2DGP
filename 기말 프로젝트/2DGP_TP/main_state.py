@@ -25,7 +25,7 @@ global stime
 global font
 
 global stage
-stage = 9
+stage = 12
 
 global isPaused
 isPaused = False

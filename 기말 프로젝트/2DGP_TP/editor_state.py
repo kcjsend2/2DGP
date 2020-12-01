@@ -38,9 +38,9 @@ global rDown
 rDown = False
 
 global map
-map = 'map_data/Stage9.json'
+map = 'map_data/Stage12.json'
 global item_map
-item_map = 'map_data/Stage9_item.json'
+item_map = 'map_data/Stage12_item.json'
 
 def enter():
     global map
