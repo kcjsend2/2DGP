@@ -304,6 +304,174 @@
     "isFlag": false
   },
   {
+    "x": 1216,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1248,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1280,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1312,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1344,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1376,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1408,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1440,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1472,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1504,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1536,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1568,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1632,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1600,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1664,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1696,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1728,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1760,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1792,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1824,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1856,
+    "y": 0,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
     "x": 0,
     "y": 32,
     "sx": 0,
@@ -840,294 +1008,6 @@
     "isFlag": false
   },
   {
-    "x": 1152,
-    "y": 1024,
-    "sx": 0,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1216,
-    "y": 0,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 0,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 32,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 64,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 96,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 128,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 160,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 192,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 224,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 256,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 288,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 320,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 352,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 384,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 416,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 448,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 480,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 512,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 544,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 576,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 608,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 640,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 672,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 704,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 736,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 768,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 800,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 832,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 864,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 896,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 928,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 960,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 992,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1248,
-    "y": 1024,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1216,
-    "y": 1024,
-    "sx": 0,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
     "x": 1184,
     "y": 1024,
     "sx": 0,
@@ -1136,192 +1016,456 @@
     "isFlag": false
   },
   {
-    "x": 224,
-    "y": 768,
-    "sx": 32,
+    "x": 1216,
+    "y": 1024,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 192,
-    "y": 768,
-    "sx": 32,
+    "x": 1248,
+    "y": 1024,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 192,
-    "y": 832,
-    "sx": 128,
-    "sy": 160,
+    "x": 1280,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
     "isCollision": true,
-    "isFlag": true
+    "isFlag": false
   },
   {
-    "x": 192,
-    "y": 800,
-    "sx": 128,
-    "sy": 128,
+    "x": 1312,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
     "isCollision": true,
-    "isFlag": true
+    "isFlag": false
   },
   {
-    "x": 480,
+    "x": 1344,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1376,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1152,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1408,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1440,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1472,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1504,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1536,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1568,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1600,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1632,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1664,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1696,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1728,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 0,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
     "y": 32,
     "sx": 0,
-    "sy": 0,
-    "isCollision": false,
+    "sy": 288,
+    "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 512,
-    "y": 32,
-    "sx": 32,
-    "sy": 0,
-    "isCollision": false,
-    "isFlag": false
-  },
-  {
-    "x": 544,
-    "y": 32,
-    "sx": 64,
-    "sy": 0,
-    "isCollision": false,
-    "isFlag": false
-  },
-  {
-    "x": 544,
-    "y": 64,
-    "sx": 64,
-    "sy": 32,
-    "isCollision": false,
-    "isFlag": false
-  },
-  {
-    "x": 512,
-    "y": 64,
-    "sx": 32,
-    "sy": 32,
-    "isCollision": false,
-    "isFlag": false
-  },
-  {
-    "x": 480,
+    "x": 1888,
     "y": 64,
     "sx": 0,
-    "sy": 32,
-    "isCollision": false,
+    "sy": 288,
+    "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 480,
+    "x": 1888,
+    "y": 128,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 192,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 224,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 256,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 288,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 320,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
     "y": 96,
     "sx": 0,
-    "sy": 64,
-    "isCollision": false,
+    "sy": 288,
+    "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 512,
-    "y": 96,
-    "sx": 32,
-    "sy": 64,
-    "isCollision": false,
+    "x": 1888,
+    "y": 160,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 544,
-    "y": 96,
-    "sx": 64,
-    "sy": 64,
-    "isCollision": false,
+    "x": 1888,
+    "y": 352,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 384,
+    "x": 1888,
+    "y": 384,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 416,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 448,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 480,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 512,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 544,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 576,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 608,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 640,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
     "y": 672,
-    "sx": 32,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 352,
-    "y": 224,
-    "sx": 32,
+    "x": 1888,
+    "y": 704,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 384,
-    "y": 224,
-    "sx": 32,
+    "x": 1888,
+    "y": 736,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 256,
-    "y": 384,
-    "sx": 32,
+    "x": 1888,
+    "y": 768,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 224,
-    "y": 384,
-    "sx": 32,
+    "x": 1888,
+    "y": 800,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 192,
-    "y": 384,
-    "sx": 32,
+    "x": 1888,
+    "y": 832,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 160,
-    "y": 384,
-    "sx": 32,
+    "x": 1888,
+    "y": 864,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 128,
-    "y": 384,
-    "sx": 32,
+    "x": 1888,
+    "y": 896,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 544,
-    "y": 608,
-    "sx": 32,
+    "x": 1888,
+    "y": 928,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 576,
-    "y": 608,
-    "sx": 32,
+    "x": 1888,
+    "y": 960,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 992,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1888,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1856,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1824,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1792,
+    "y": 1024,
+    "sx": 0,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 1760,
+    "y": 1024,
+    "sx": 0,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
     "x": 288,
-    "y": 384,
+    "y": 320,
+    "sx": 32,
+    "sy": 288,
+    "isCollision": true,
+    "isFlag": false
+  },
+  {
+    "x": 192,
+    "y": 192,
     "sx": 32,
     "sy": 288,
     "isCollision": true,
@@ -1329,71 +1473,55 @@
   },
   {
     "x": 800,
-    "y": 416,
+    "y": 320,
     "sx": 32,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 832,
-    "y": 416,
+    "x": 1344,
+    "y": 320,
     "sx": 32,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 864,
-    "y": 416,
+    "x": 1792,
+    "y": 320,
     "sx": 32,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 896,
-    "y": 416,
+    "x": 1792,
+    "y": 384,
+    "sx": 128,
+    "sy": 160,
+    "isCollision": true,
+    "isFlag": true
+  },
+  {
+    "x": 1792,
+    "y": 352,
+    "sx": 128,
+    "sy": 128,
+    "isCollision": true,
+    "isFlag": true
+  },
+  {
+    "x": 768,
+    "y": 320,
     "sx": 32,
     "sy": 288,
     "isCollision": true,
     "isFlag": false
   },
   {
-    "x": 928,
-    "y": 416,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 960,
-    "y": 416,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 992,
-    "y": 416,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1024,
-    "y": 416,
-    "sx": 32,
-    "sy": 288,
-    "isCollision": true,
-    "isFlag": false
-  },
-  {
-    "x": 1056,
-    "y": 416,
+    "x": 1312,
+    "y": 320,
     "sx": 32,
     "sy": 288,
     "isCollision": true,

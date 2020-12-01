@@ -35,7 +35,7 @@ class Player:
 
     Boots = True
     Rocketlauncher = True
-    GaussGun = False
+    GaussGun = True
 
     BB = [-16, -16, 16, 16]
 
