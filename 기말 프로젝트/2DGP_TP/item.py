@@ -3,9 +3,9 @@ from pico2d import *
 import gobj
 
 class item:
-    def __init__(self, x, y, type):
+    def __init__(self, x, y, typ):
         self.pos = [x, y]
-        self.type = type
+        self.type = typ
         self.image = gfw.image.load(gobj.RES_DIR + '/Arms.png')
 
         self.CollisionMode = True
