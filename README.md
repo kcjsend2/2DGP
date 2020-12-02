@@ -184,8 +184,8 @@ Insights: https://github.com/kcjsend2/2DGP/graphs/commit-activity
 3차 발표
 ==================
 
-1차 발표 영상 : https://www.youtube.com/watch?v=uHZNnriLfd0
-2차 발표 영상 : https://www.youtube.com/watch?v=nmEQlEVHdfA&feature=youtu.be
+	1차 발표 영상 : https://www.youtube.com/watch?v=uHZNnriLfd0
+	2차 발표 영상 : https://www.youtube.com/watch?v=nmEQlEVHdfA&feature=youtu.be
 
 개발 진척도
 ------------------
